@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFF</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--基本颜色-->
+    <color name="red">#FF0000</color>
+    <color name="orange">#FF7F00</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="green">#00FF00 </color>
+    <color name="cyan">#00FFFF</color>
+    <color name="blue"> #0000FF</color>
+    <color name="purple">#8B00FF</color>
+    <color name="translucent">#00000000</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <!--登陆界面-->
+    <color name="colorLoginBackground">#ECEDF1</color>
+    <color name="colorEditTextBackground">#FFFFFF</color>
+    <color name="colorBtnBackground">#1FBAF3</color>
+
+    <!--课程表-->
+    <color name="colorCourseBg">#ECF0F1</color>
+    <color name="colorCourse1">#FFBA07</color>
+    <color name="colorCourse2">#01B3EE</color>
+    <color name="colorCourse3">#13CA9A</color>
+    <color name="colorCourse4">#BA8ADF</color>
+    <color name="colorCourse5">#6E9FF6</color>
+
+    <color name="colorScoreBg">#EAEAEA</color>
+    <color name="colorScore">#BB00FF00</color>
+
+
+    <!--下载-->
+
+    <color name="colorTitle">#494949</color>
+    <color name="colorContent">#8a8a8a</color>
+    <color name="colorTools">#1fba7b</color>
+    <color name="colorToolText">#e8faf4</color>
+    <color name="colorSegmentation">#cad5da</color>
+    <color name="colorWhite">#FFFFFF</color>
+</resources>

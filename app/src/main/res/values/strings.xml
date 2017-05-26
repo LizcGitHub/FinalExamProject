@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">FinalExamProject</string>
+
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- TextInputLayout 的颜色 -->
+    <style name="TextLabel" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/colorAccent</item>
+        <item name="android:textSize">20sp</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/black</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <string name="title_activity_login">Sign in</string>
+
+    <!--侧栏-->
+    <string name="action_settings">Settings</string>
+
+
+    <!--登陆界面-->
+    <string name="pwdError">密码错误！！</string>
+    <string name="checkCodeError">验证码不正确！！</string>
+    <string name="userError">用户名不存在或未按照要求参加教学活动！！</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Student ID</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_checkcode">CheckCode</string>
+    <string name="prompt_btn_login">Login In</string>
+
+    <!--课程表-->
+    <string name="week_1">周一</string>
+    <string name="week_2">周二</string>
+    <string name="week_3">周三</string>
+    <string name="week_4">周四</string>
+    <string name="week_5">周五</string>
+    <string name="week_6">周六</string>
+    <string name="week_7">周日</string>
+    <string name="title_activity_main2">Main2Activity</string>
+</resources>

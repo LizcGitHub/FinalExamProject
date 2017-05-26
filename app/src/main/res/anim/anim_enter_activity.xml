@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--用户编写答案：
+        AnswerWriterActivity进入动画-->
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--QuestionAddActivity 从下往上-->
+    <translate
+        android:fromYDelta="100%p"
+        android:toYDelta="0%p"
+        android:duration="500"
+        />
+</set>

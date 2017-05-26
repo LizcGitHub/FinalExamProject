@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_form"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorLoginBackground">
+    <RelativeLayout
+        android:id="@+id/email_login_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="@dimen/loginPage_edit_start"
+        android:layout_marginEnd="@dimen/loginPage_edit_end"
+        android:scrollbars="none"
+        android:layout_marginLeft="@dimen/loginPage_edit_start"
+        android:layout_marginRight="@dimen/loginPage_edit_end">
+
+        <ImageView
+            android:layout_marginTop="15dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginBottom="15dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/xmut_big"
+            android:id="@+id/id_iv_xmut"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/loginPage_edit_height"
+            android:layout_below="@id/id_iv_xmut"
+            android:theme="@style/TextLabel"
+            android:id="@+id/id_layout_username">
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textSize="@dimen/loginPage_edit_textSize"
+                android:id="@+id/id_edit_username"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/loginPage_edit_height"
+            android:layout_below="@id/id_layout_username"
+            android:theme="@style/TextLabel"
+            android:id="@+id/id_layout_password">
+
+            <EditText
+                android:id="@+id/id_edit_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_password"
+                android:imeActionId="@+id/login"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textSize="@dimen/loginPage_edit_textSize"
+                android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:id="@+id/id_layout_checkcode"
+            android:layout_below="@+id/id_layout_password"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/loginPage_edit_height"
+                android:theme="@style/TextLabel"
+                android:layout_weight="0.7">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_checkcode"
+                    android:imeActionId="@+id/login"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textSize="@dimen/loginPage_edit_textSize"
+                    android:id="@+id/id_edit_checkcode"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:visibility="gone"
+                android:id="@+id/id_iv_checkCode"/>
+
+            <ProgressBar
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingTop="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                android:layout_weight="0.3"
+                android:visibility="visible"
+                android:id="@+id/id_loading_checkcode"/>
+        </LinearLayout>
+        <Button
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/loginPage_btn_login_height"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"
+            android:layout_below="@id/id_layout_checkcode"
+            android:text="@string/prompt_btn_login"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_green"
+            android:textAllCaps="false"
+            android:id="@+id/id_btn_login"/>
+    </RelativeLayout>
+</ScrollView>
