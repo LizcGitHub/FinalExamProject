@@ -56,8 +56,10 @@ public class MainFragment extends MyBaseFragment implements TabLayout.OnTabSelec
 
     private void initData() {
         mFragmentsList = new ArrayList<>();
-        mFragmentsList.add(HomePageFragment.newInstance(null, null));
-        mFragmentsList.add(SchoolPicsFragment.newInstance(null, null));
+//        mFragmentsList.add(HomePageFragment.newInstance(null, null));
+//        mFragmentsList.add(SchoolPicsFragment.newInstance(null, null));
+        mFragmentsList.add(new Fragment());
+        mFragmentsList.add(new Fragment());
         mFragmentsList.add(new TravelFragment());
 //        mFragmentsList.add(NewsFragment.newInstance(null, null));
 //        mFragmentsList.add(NewsFragment.newInstance(null, null));

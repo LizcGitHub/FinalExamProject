@@ -1,5 +1,8 @@
 package com.study.zouchao.finalexamproject_two.travellist;
 
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
 import com.study.zouchao.finalexamproject_two.travellist.adapter.TravelRecyclerViewAdapter;
 
 /**
@@ -12,9 +15,14 @@ public interface TravelContract {
     }
     interface ITravelView {
         void setAdapter(TravelRecyclerViewAdapter adapter);
-        void showLoading(boolean isShow);
+
+        void showRefreshingLoading(boolean isShow);
+        void showSeeMoreLoading(boolean isShow);
+        void setSeeMoreLoading(View footerLoadingView);
     }
     interface ITravelPresenter {
         void onRefreshingData();
+        void loadSeeMore();
+        void initRecyclerView(RecyclerView rv);
     }
 }

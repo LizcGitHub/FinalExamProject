@@ -4,16 +4,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="10dp"
-    android:layout_marginStart="10dp"
+    android:layout_marginStart="@dimen/activity_horizontal_margin"
+    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+
     android:layout_marginTop="8dp"
-    app:cardCornerRadius="7dp"
-    app:cardElevation="1dp">
+    app:cardCornerRadius="2dp"
+    app:cardElevation="1dp"
+  >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -67,25 +70,85 @@
             android:paddingTop="5dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/icon_view2"
+
+                android:layout_gravity="center_vertical"/>
             <TextView
+                android:id="@+id/id_tv_view"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textColor="#B3B3B3"
-                android:layout_gravity="left"
-                android:text="10.6万"/>
+                android:gravity="center"
+                android:textSize="12sp"
+                android:maxLength="4"
+                android:maxLines="1"
+                android:paddingStart="3dp"
+                android:paddingEnd="3dp"
+                android:layout_gravity="left|center_vertical"
+                android:text="169"/>
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/icon_comm"
+                android:layout_gravity="center_vertical"/>
+            <TextView
+                android:id="@+id/id_tv_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#B3B3B3"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:maxLines="1"
+                android:maxLength="4"
+                android:paddingStart="3dp"
+                android:paddingEnd="3dp"
+                android:layout_gravity="left|center_vertical"
+                android:text="169"/>
+
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/icon_eye"
+                android:layout_gravity="center_vertical"/>
+            <TextView
+                android:id="@+id/id_tv_visit"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#B3B3B3"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:maxLines="1"
+                android:maxLength="8"
+                android:paddingStart="3dp"
+                android:paddingEnd="3dp"
+                android:layout_gravity="left|center_vertical"
+                android:text="10000.6万"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:gravity="center"/>
 
             <TextView
                 android:id="@+id/id_tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="right"
+                android:layout_gravity="right|center_vertical"
                 android:textColor="#B3B3B3"
+                android:gravity="center"
+                android:textSize="12sp"
                 android:text="2017.01.05"/>
         </LinearLayout>
     </LinearLayout>
