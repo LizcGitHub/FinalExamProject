@@ -26,6 +26,14 @@ public class ZouImgLoader {
                 .into(iv);
     }
 
+    public static void loadImage(Context context, ImageView iv, Bitmap bm, int errorImg) {
+        Glide.with(context)
+                .load(bm)
+                .error(errorImg)
+                .into(iv);
+    }
+
+
     public static void loadImage(Context context, ImageView iv, int resId, int errorImg) {
         Glide.with(context)
                 .load(resId)

@@ -19,10 +19,14 @@ public class TravelDetailActivity extends MyBaseActivity {
         setContentView(R.layout.activity_travel_detail);
     }
 
-    public static final String URL = "URL";
-    public static void actionStartTravelDetailActivity(Context context, String url) {
+    public static final String KEY_URL = "URL";
+    public static final String KEY_BG_IMG = "BG_IMG";
+    public static final String KEY_TITLE = "TITLE";
+    public static void actionStartTravelDetailActivity(Context context, String title, String bgImg, String url) {
         Intent intent = new Intent(context, TravelDetailActivity.class);
-        intent.putExtra(URL, url);
+        intent.putExtra(KEY_URL, url);
+        intent.putExtra(KEY_TITLE, title);
+        intent.putExtra(KEY_BG_IMG, bgImg);
         context.startActivity(intent);
     }
 }

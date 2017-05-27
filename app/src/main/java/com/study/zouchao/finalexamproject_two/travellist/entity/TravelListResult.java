@@ -302,6 +302,16 @@ public class TravelListResult {
         private String SubTitle;
         private List<TagsBean> Tags;
 
+        private String htmlUrlBySet;
+
+        public String getHtmlUrlBySet() {
+            return htmlUrlBySet;
+        }
+
+        public void setHtmlUrlBySet(String htmlUrlBySet) {
+            this.htmlUrlBySet = htmlUrlBySet;
+        }
+
         public int getId() {
             return Id;
         }
@@ -917,6 +927,7 @@ public class TravelListResult {
                     ", IsBestTravel=" + IsBestTravel +
                     ", SubTitle='" + SubTitle + '\'' +
                     ", Tags=" + Tags +
+                    ", htmlUrlBySet='" + htmlUrlBySet + '\'' +
                     '}';
         }
 

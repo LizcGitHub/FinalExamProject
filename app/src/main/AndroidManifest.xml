@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.study.zouchao.finalexamproject_three">
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -22,69 +22,53 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:allowBackup="true"
         android:name="com.study.zouchao.finalexamproject_two.util.App"
-        android:label="@string/app_name"
+        android:allowBackup="true"
         android:icon="@drawable/xmut_big"
+        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--main-->
+        <!-- main -->
         <activity
             android:name="com.study.zouchao.finalexamproject_two.main.view.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
-        <!--pdfActivity-->
-        <activity android:name="com.app.readpdfdemo.PdfActivity">
-        </activity>
+        <!-- pdfActivity -->
+        <activity android:name="com.app.readpdfdemo.PdfActivity"></activity>
 
-        <!--仿微信 photoview-->
+        <!-- 仿微信 photoview -->
         <activity
             android:name="com.study.zouchao.finalexamproject_two.util.ui.photoview.DragPhotoActivity"
-            android:theme="@style/translucent">
-        </activity>
+            android:theme="@style/translucent"></activity>
 
-        <!--登陆-->
-        <activity android:name="com.study.zouchao.finalexamproject_two.login.view.LoginActivity">
-
-        </activity>
+        <!-- 登陆 -->
+        <activity android:name="com.study.zouchao.finalexamproject_two.login.view.LoginActivity"></activity>
 
         <!-- Service -->
-        <service android:name="com.study.zouchao.finalexamproject_two.service.DownloadService" >
-        </service>
+        <service android:name="com.study.zouchao.finalexamproject_two.service.DownloadService"></service>
 
+        <!-- 测试下载页 -->
+        <activity android:name="com.study.zouchao.finalexamproject_two.start.StartActivity"></activity>
 
-
-        <!--测试下载页-->
-        <activity android:name="com.study.zouchao.finalexamproject_two.start.StartActivity">
-
-        </activity>
-
-
-        <!--正在下载 和 已下载-->
-        <activity android:name="com.study.zouchao.finalexamproject_two.downloaddata.all.view.activity.AllDownloadActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-        </activity>
-
-
-
-        <activity android:name="com.study.zouchao.finalexamproject_two.traveldetail.TravelDetailActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-        </activity>
+        <!-- 正在下载 和 已下载 -->
+        <activity
+            android:name="com.study.zouchao.finalexamproject_two.downloaddata.all.view.activity.AllDownloadActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name="com.study.zouchao.finalexamproject_two.traveldetail.TravelDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name="com.study.zouchao.finalexamproject_two.traveldetail.BigPicActivity"></activity>
     </application>
 
 </manifest>

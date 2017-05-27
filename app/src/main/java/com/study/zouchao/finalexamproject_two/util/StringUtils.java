@@ -18,4 +18,17 @@ public class StringUtils {
 
         return false;
     }
+
+    /**
+     * 省略字符串
+     * @param preStr
+     * @param maxLen
+     * @return
+     */
+    public static String strOmit(String preStr, int maxLen) {
+        if (isEmpty(preStr) || maxLen <= 0)    return "";
+        if (preStr.length() > maxLen)
+            return preStr.substring(0, maxLen) + "..";
+        return preStr;
+    }
 }

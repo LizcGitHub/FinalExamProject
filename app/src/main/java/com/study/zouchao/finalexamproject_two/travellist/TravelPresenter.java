@@ -196,8 +196,8 @@ public class TravelPresenter implements TravelContract.ITravelPresenter, TravelR
     }
 
     @Override
-    public void onItemClick(View v, String url) {
+    public void onItemClick(View v, String title, String bgImg, String url) {
         //TODO:跳转：替换Fragment
-        TravelDetailActivity.actionStartTravelDetailActivity(mContext, url);
+        TravelDetailActivity.actionStartTravelDetailActivity(mContext, title, bgImg, url);
     }
 }
