@@ -3,12 +3,17 @@ package com.study.zouchao.finalexamproject_two.traveldetail;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.DragEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -38,6 +43,7 @@ import butterknife.BindView;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func1;
+import uk.co.senab.photoview.PhotoView;
 
 /**
  * Created by Administrator on 2017/5/26.
@@ -58,21 +64,34 @@ public class TravelDetailFragment extends MyBaseFragment {
      * 遍历所有图片加上点击事件
      */
     private static final String JS_CLICK_IMG
-            =  "javascript:(function() {                                                    "
-            +  "                        var objs = document.getElementsByTagName(\"img\");  "
-            +  "                        for(var i = 0; i < objs.length; i++) {              "
-            +  "                        objs[i].onclick = function() {                      "
-            +  "                        window.imagelistener.openImage(this.src);           "
-            +  "                    }                                                       "
-            +  "                }                                                           "
-            +  "            })()                                                            ";
+            = "javascript:(function() {                                                    "
+            + "                        var objs = document.getElementsByTagName(\"img\");  "
+            + "                        for(var i = 0; i < objs.length; i++) {              "
+            + "                        objs[i].onclick = function() {                      "
+            + "                        window.imagelistener.openImage(this.src);           "
+            + "                    }                                                       "
+            + "                }                                                           "
+            + "            })()                                                            ";
+
+    private Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            final String url = (String) msg.obj;
+            Log.d("webview", "...");
+//            ToastUtils.showLong(getActivity(), "图片点击事件！！"+img);
+            final View view = LayoutInflater.from(getActivity()).inflate(R.layout.activity_big_pic, null, false);
+            final PhotoView iv = (PhotoView) view.findViewById(R.id.id_iv);
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                    .setView(view);
+            builder.show();
+            ZouImgLoader.loadImage(getActivity(), iv, url, R.drawable.error_pic);
+        }
+    };
 
     //js通信接口
     public class MyJavascriptInterface {
         @JavascriptInterface
-        public void openImage(String img) {
-            Log.d("webview", "...");
-            ToastUtils.showLong(getActivity(), "图片点击事件！！"+img);
+        public void openImage(final String img) {
+            handler.obtainMessage(0, img).sendToTarget();
         }
     }
 
@@ -106,6 +125,7 @@ public class TravelDetailFragment extends MyBaseFragment {
             addImageClickListener();
             return super.shouldOverrideUrlLoading(view, url);
         }
+
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             view.getSettings().setJavaScriptEnabled(true);
@@ -113,6 +133,7 @@ public class TravelDetailFragment extends MyBaseFragment {
             Log.d("webview", "onStart");
             addImageClickListener();
         }
+
         @Override
         public void onPageFinished(WebView view, String url) {
             view.getSettings().setJavaScriptEnabled(true);
@@ -121,6 +142,7 @@ public class TravelDetailFragment extends MyBaseFragment {
             // html加载完成之后，添加监听图片的点击js函数
             addImageClickListener();
         }
+
         @Override
         public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
             super.onReceivedError(view, errorCode, description, failingUrl);
@@ -177,7 +199,10 @@ public class TravelDetailFragment extends MyBaseFragment {
                             return Jsoup.connect(url)
                                     .timeout(C.CONN_TIME_OUT)
                                     .get();
-                        } catch (IOException e) {e.printStackTrace();return null;}
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            return null;
+                        }
                     }
                 })
 //                .map(RxSchedulers.<Document>sleep(3000))
@@ -202,19 +227,18 @@ public class TravelDetailFragment extends MyBaseFragment {
     }
 
     private void parseToContent(Document doc) {
-        if (doc == null)    return;
+        if (doc == null) return;
         H5Util.removeAllHref(doc);
         H5Util.imgAutoScale(doc);
-        Elements elesContent =  doc.select(".content");
-        if (elesContent.size() <= 0)    return;
+        Elements elesContent = doc.select(".content");
+        if (elesContent.size() <= 0) return;
         Element eleContent = elesContent.get(0);
         load2WebView(eleContent.html());
     }
 
 
-
     private void load2WebView(String content) {
-        if (StringUtils.isEmpty(content))   return;
+        if (StringUtils.isEmpty(content)) return;
 //        LogLongUtil.logD("web", content);
 
         mWv.getSettings().setJavaScriptEnabled(true);
@@ -226,8 +250,6 @@ public class TravelDetailFragment extends MyBaseFragment {
         mWv.setWebViewClient(new MyWebViewClient());
 //        mWv.loadUrl(content);
     }
-
-
 
 
     private String changeDataSrc2Src(String content) {
