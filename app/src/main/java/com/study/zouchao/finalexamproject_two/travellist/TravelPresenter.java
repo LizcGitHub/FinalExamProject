@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.study.zouchao.finalexamproject_three.R;
+import com.study.zouchao.finalexamproject_two.traveldetail.TravelDetailActivity;
 import com.study.zouchao.finalexamproject_two.travellist.adapter.TravelRecyclerViewAdapter;
 import com.study.zouchao.finalexamproject_two.travellist.entity.TravelListResult;
 import com.study.zouchao.finalexamproject_two.travellist.model.TravelCacheModel;
@@ -27,7 +28,7 @@ import rx.functions.Action1;
  * Created by Administrator on 2017/5/24.
  */
 
-public class TravelPresenter implements TravelContract.ITravelPresenter {
+public class TravelPresenter implements TravelContract.ITravelPresenter, TravelRecyclerViewAdapter.IRvItemClickListener {
     private static final String TAG = "TravelP";
     private Context mContext;
     private TravelContract.ITravelView mView;
@@ -186,7 +187,7 @@ public class TravelPresenter implements TravelContract.ITravelPresenter {
         mAdapter = new TravelRecyclerViewAdapter(mContext, mData);
         View footLoadingView = LayoutInflater.from(mContext).inflate(R.layout.footview_recyclerview, rv, false);
         mAdapter.setFooterView(footLoadingView);
-//        mAdapter.setOnItemClickListener(this);
+        mAdapter.setOnItemClickListener(this);
         mView.setSeeMoreLoading(footLoadingView);
         rv.setAdapter(mAdapter);
         //添加上滑更多监听器
@@ -194,4 +195,9 @@ public class TravelPresenter implements TravelContract.ITravelPresenter {
         conn(ACTION_REFRESHING);
     }
 
+    @Override
+    public void onItemClick(View v, String url) {
+        //TODO:跳转：替换Fragment
+        TravelDetailActivity.actionStartTravelDetailActivity(mContext, url);
+    }
 }

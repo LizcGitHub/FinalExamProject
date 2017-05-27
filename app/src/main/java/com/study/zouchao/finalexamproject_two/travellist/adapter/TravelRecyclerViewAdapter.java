@@ -108,7 +108,7 @@ public class TravelRecyclerViewAdapter extends RecyclerView.Adapter<TravelRecycl
                 @Override
                 public void onClick(View v) {
                     if (mListener != null) {
-                        mListener.onItemClick(mIv, mDatas.get(getAdapterPosition()).getH5Url());
+                        mListener.onItemClick(mIv, mDatas.get(getAdapterPosition()).getWebUrl());
                     }
                 }
             });
