@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.AndroidException;
@@ -206,13 +207,14 @@ public class TravelDetailFragment extends MyBaseFragment {
                 "    }  " +
                 "}" +
                 "})()");
+        showSnackbar("加载完毕、点击可查看大图", Snackbar.LENGTH_LONG);
     }
 
     private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             Log.d("webview", "onLoading");
-            addImageClickListener();
+//            addImageClickListener();
             return super.shouldOverrideUrlLoading(view, url);
         }
 
@@ -221,7 +223,7 @@ public class TravelDetailFragment extends MyBaseFragment {
             view.getSettings().setJavaScriptEnabled(true);
             super.onPageStarted(view, url, favicon);
             Log.d("webview", "onStart");
-            addImageClickListener();
+//            addImageClickListener();
         }
 
         @Override
@@ -329,6 +331,11 @@ public class TravelDetailFragment extends MyBaseFragment {
 //        mWv.loadUrl(content);
     }
 
+
+    private void showSnackbar(String title, int showLength) {
+        Snackbar.make(mWv, title, showLength)
+                .show();
+    }
 
     private String changeDataSrc2Src(String content) {
         return content.replace("data-src", "src");
