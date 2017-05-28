@@ -193,16 +193,9 @@ public class TravelDetailFragment extends MyBaseFragment {
     }
 
     private void addImageClickListener() {
-//        //在这添加myClient
-//        mWv.setWebChromeClient(new WebChromeClient());
-//        mWv.getSettings().setBlockNetworkImage(false);
-//        //设置为true
-//        mWv.getSettings().setJavaScriptEnabled(true);
-//        mWv.addJavascriptInterface(new MyJavascriptInterface(), "imagelistener");
-//        mWv.setWebViewClient(new MyWebViewClient());
 
 //        mWv.loadUrl(JS_CLICK_IMG);
-
+        if (mWv == null)    return;
         mWv.loadUrl("javascript:(function(){" +
                                     "var objs = document.getElementsByTagName(\"img\"); " +
                                     "for(var i=0;i<objs.length;i++)  " +
@@ -322,6 +315,8 @@ public class TravelDetailFragment extends MyBaseFragment {
 
     private void load2WebView(String content) {
         if (StringUtils.isEmpty(content)) return;
+        if (mWv == null)    return;
+
 //        LogLongUtil.logD("web", content);
 
         mWv.getSettings().setJavaScriptEnabled(true);
