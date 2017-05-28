@@ -2,6 +2,7 @@ package com.study.zouchao.finalexamproject_two.traveldetail;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.AndroidException;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
@@ -38,9 +40,14 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import butterknife.BindView;
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import uk.co.senab.photoview.PhotoView;
@@ -84,8 +91,58 @@ public class TravelDetailFragment extends MyBaseFragment {
                     .setView(view);
             builder.show();
             ZouImgLoader.loadImage(getActivity(), iv, url, R.drawable.error_pic);
+            loadOriginalImgInfo(url);
         }
     };
+
+    /**
+     * 加载原图
+     */
+    private void loadOriginalImgInfo(String url) {
+        Observable.just(url)
+                .map(new Func1<String, InputStream>() {
+                    @Override
+                    public InputStream call(String strUrl) {
+                        try {
+                            URL url = new URL(strUrl);
+                            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                            return conn.getInputStream();
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                            return null;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            return null;
+                        }
+                    }
+                })
+                .map(new Func1<InputStream, BitmapFactory.Options>() {
+                    @Override
+                    public BitmapFactory.Options call(InputStream inputStream) {
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inJustDecodeBounds = true;
+                        BitmapFactory.decodeStream(inputStream, null, options);
+                        return options;
+                    }
+                })
+                .compose(RxSchedulers.<BitmapFactory.Options>io_main())
+                .subscribe(new Action1<BitmapFactory.Options>() {
+                    @Override
+                    public void call(BitmapFactory.Options options) {
+                        loadOriginal(options);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        ToastUtils.showShort(getActivity(), "大图加载不出来，要毛自行车!!!");
+                        throwable.printStackTrace();
+                    }
+                });
+    }
+
+    private void loadOriginal(BitmapFactory.Options options) {
+        
+    }
 
     //js通信接口
     public class MyJavascriptInterface {
@@ -172,21 +229,7 @@ public class TravelDetailFragment extends MyBaseFragment {
     private void showUi() {
         mToolbar.setTitle(mTitle);
         //加载背景
-        ZouImgLoader.getBitmapByUrl(getActivity(), mBgImg, 1080, 400, new ZouImgLoader.IBitmapReadyListener() {
-            @Override
-            public void onSuccess(Bitmap bitmap) {
-//                Log.i("得到图片成功", "en ...");
-                ZouImgLoader.loadImage(getActivity(), mIvBg, FastBlurUtil.toBlur(bitmap, 1), R.drawable.error_pic);
-//                ZouImgLoader.loadImage(getActivity(), mIvBg, bitmap, R.drawable.error_pic);
-            }
-
-            @Override
-            public void onFailure(Throwable throwable) {
-                Log.i("得到图片失败", "en ...");
-                throwable.printStackTrace();
-            }
-        });
-        ZouImgLoader.loadImage(getActivity(), mIvBg, mBgImg, R.drawable.error_pic);
+        ZouImgLoader.loadImageWithBlur(getActivity(), mIvBg, mBgImg, R.drawable.error_pic);
     }
 
     private void load() {
@@ -242,7 +285,7 @@ public class TravelDetailFragment extends MyBaseFragment {
 //        LogLongUtil.logD("web", content);
 
         mWv.getSettings().setJavaScriptEnabled(true);
-
+        mWv.getSettings().setBlockNetworkImage(false);
         mWv.loadDataWithBaseURL(null, changeDataSrc2Src(content), "text/html", "utf-8", null);
 
         // 添加js交互接口类，并起别名 imagelistner

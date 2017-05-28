@@ -81,5 +81,8 @@ dependencies {
     compile 'com.github.githubwing:DragPhotoView:1.0.1'
     //baidu map
     compile files('libs/BaiduLBS_Android.jar')
-
+    //Glide 图片处理
+    compile 'jp.wasabeef:glide-transformations:2.0.2'
+    // If you want to use the GPU Filters
+    compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
 }

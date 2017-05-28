@@ -10,6 +10,7 @@ import com.study.zouchao.finalexamproject_two.util.RxSchedulers;
 
 import java.util.concurrent.ExecutionException;
 
+import jp.wasabeef.glide.transformations.BlurTransformation;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -48,6 +49,15 @@ public class ZouImgLoader {
                 .skipMemoryCache(isAllowMemoryCache)
                 .diskCacheStrategy(diskCacheStrategy)
                 .error(errorImg)
+                .into(iv);
+    }
+
+
+    public static void loadImageWithBlur(Context context, ImageView iv, String url, int errorImg) {
+        Glide.with(context)
+                .load(url)
+                .error(errorImg)
+                .bitmapTransform(new BlurTransformation(context))
                 .into(iv);
     }
 
