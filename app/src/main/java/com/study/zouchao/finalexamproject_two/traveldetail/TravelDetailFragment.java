@@ -1,5 +1,6 @@
 package com.study.zouchao.finalexamproject_two.traveldetail;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,9 +13,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.AndroidException;
 import android.util.Log;
+import android.view.Display;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
@@ -23,6 +26,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.study.zouchao.finalexamproject_three.R;
 import com.study.zouchao.finalexamproject_two.base_zou.MyBaseFragment;
 import com.study.zouchao.finalexamproject_two.base_zou.ZouImgLoader;
@@ -33,6 +37,7 @@ import com.study.zouchao.finalexamproject_two.util.LogLongUtil;
 import com.study.zouchao.finalexamproject_two.util.RxSchedulers;
 import com.study.zouchao.finalexamproject_two.util.StringUtils;
 import com.study.zouchao.finalexamproject_two.util.ToastUtils;
+import com.study.zouchao.finalexamproject_two.util.ui.photoview.DragPhotoActivity;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -57,6 +62,7 @@ import uk.co.senab.photoview.PhotoView;
  */
 
 public class TravelDetailFragment extends MyBaseFragment {
+    private static final String TAG = "TravelDetailF";
     @BindView(R.id.id_collapsing_toolbar)
     CollapsingToolbarLayout mToolbar;
     @BindView(R.id.id_bg_travel_detail)
@@ -74,31 +80,44 @@ public class TravelDetailFragment extends MyBaseFragment {
             = "javascript:(function() {                                                    "
             + "                        var objs = document.getElementsByTagName(\"img\");  "
             + "                        for(var i = 0; i < objs.length; i++) {              "
-            + "                        objs[i].onclick = function() {                      "
-            + "                        window.imagelistener.openImage(this.src);           "
-            + "                    }                                                       "
-            + "                }                                                           "
-            + "            })()                                                            ";
+            + "                             objs[i].onclick = function() {                 "
+            + "                                 window.imagelistener.openImage(this.src);  "
+            + "                             }                                              "
+            + "                        }                                                   "
+            + "                   })()                                                     ";
 
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             final String url = (String) msg.obj;
             Log.d("webview", "...");
 //            ToastUtils.showLong(getActivity(), "图片点击事件！！"+img);
-            final View view = LayoutInflater.from(getActivity()).inflate(R.layout.activity_big_pic, null, false);
-            final PhotoView iv = (PhotoView) view.findViewById(R.id.id_iv);
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-                    .setView(view);
-            builder.show();
-            ZouImgLoader.loadImage(getActivity(), iv, url, R.drawable.error_pic);
-            loadOriginalImgInfo(url);
+//            final View view = LayoutInflater.from(getActivity()).inflate(R.layout.activity_big_pic, null, false);
+//            final PhotoView iv = (PhotoView) view.findViewById(R.id.id_iv);
+//            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+//                    .setView(view);
+//            AlertDialog dialog = builder.create();
+
+            Dialog dialog = new Dialog(getActivity(), R.style.transparentBgDialog);
+            dialog.show();
+            LayoutInflater inflater = LayoutInflater.from(getActivity());
+            View viewDialog = inflater.inflate(R.layout.activity_big_pic, null);
+                        final PhotoView iv = (PhotoView) viewDialog.findViewById(R.id.id_iv);
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            int width = display.getWidth();
+            int height = display.getHeight();
+//设置dialog的宽高为屏幕的宽高
+            ViewGroup.LayoutParams layoutParams = new  ViewGroup.LayoutParams(width, height);
+            dialog.setContentView(viewDialog, layoutParams);
+            ZouImgLoader.loadImageWithOriginalSize(getActivity(), iv, url, R.drawable.error_pic);
+//            loadOriginalImgInfo(url);
+
         }
     };
 
     /**
      * 加载原图
      */
-    private void loadOriginalImgInfo(String url) {
+    private void loadOriginalImgInfo(final String url) {
         Observable.just(url)
                 .map(new Func1<String, InputStream>() {
                     @Override
@@ -129,7 +148,7 @@ public class TravelDetailFragment extends MyBaseFragment {
                 .subscribe(new Action1<BitmapFactory.Options>() {
                     @Override
                     public void call(BitmapFactory.Options options) {
-                        loadOriginal(options);
+                        loadOriginal(options, url);
                     }
                 }, new Action1<Throwable>() {
                     @Override
@@ -140,8 +159,29 @@ public class TravelDetailFragment extends MyBaseFragment {
                 });
     }
 
-    private void loadOriginal(BitmapFactory.Options options) {
-        
+    private void loadOriginal(BitmapFactory.Options options, final String url) {
+        Log.i(TAG, "height"+options.outHeight);
+        Log.i(TAG, "width"+options.outWidth);
+        ZouImgLoader.getBitmapByUrl(getActivity(), url, options.outWidth, options.outHeight, new ZouImgLoader.IBitmapReadyListener() {
+            @Override
+            public void onSuccess(Bitmap bitmap) {
+                Log.d("webview", "...");
+//            ToastUtils.showLong(getActivity(), "图片点击事件！！"+img);
+                final View view = LayoutInflater.from(getActivity()).inflate(R.layout.activity_big_pic, null, false);
+                final PhotoView iv = (PhotoView) view.findViewById(R.id.id_iv);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                        .setView(view);
+                builder.show();
+                ZouImgLoader.loadImageWithOriginalSize(getActivity(), iv, url, R.drawable.error_pic);
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                throwable.printStackTrace();
+                ToastUtils.showLong(getActivity(), "要毛自行车");
+            }
+        });
     }
 
     //js通信接口
@@ -164,8 +204,8 @@ public class TravelDetailFragment extends MyBaseFragment {
 //        mWv.loadUrl(JS_CLICK_IMG);
 
         mWv.loadUrl("javascript:(function(){" +
-                "var objs = document.getElementsByTagName(\"img\"); " +
-                "for(var i=0;i<objs.length;i++)  " +
+                                    "var objs = document.getElementsByTagName(\"img\"); " +
+                                    "for(var i=0;i<objs.length;i++)  " +
                 "{"
                 + "    objs[i].onclick=function()  " +
                 "    {  "

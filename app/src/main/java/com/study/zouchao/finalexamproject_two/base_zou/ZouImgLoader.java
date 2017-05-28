@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.Target;
 import com.study.zouchao.finalexamproject_two.util.RxSchedulers;
 
 import java.util.concurrent.ExecutionException;
@@ -26,6 +27,15 @@ public class ZouImgLoader {
                 .error(errorImg)
                 .into(iv);
     }
+
+    public static void loadImage(Context context, ImageView iv, String urlImg, int width, int height, int errorImg) {
+        Glide.with(context)
+                .load(urlImg)
+                .override(width, height)
+                .error(errorImg)
+                .into(iv);
+    }
+
 
     public static void loadImage(Context context, ImageView iv, Bitmap bm, int errorImg) {
         Glide.with(context)
@@ -61,6 +71,13 @@ public class ZouImgLoader {
                 .into(iv);
     }
 
+    public static void loadImageWithOriginalSize(Context context, ImageView iv, String urlImg, int errorImg) {
+        Glide.with(context)
+                .load(urlImg)
+                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                .error(errorImg)
+                .into(iv);
+    }
     /*
      * 根据Uri 获得Bitmap
      */
