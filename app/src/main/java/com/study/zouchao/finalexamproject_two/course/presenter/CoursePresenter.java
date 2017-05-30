@@ -190,7 +190,7 @@ public class CoursePresenter implements CourseContract.ICoursePresenter {
      * @param singleCourse
      */
     private void createSingleCourseBeanBy4SingleCourseAttrs(List<String> singleCourse) {
-        Log.i(".............分成单一课程", "...................");
+//        Log.i(".............分成单一课程", "...................");
         CourseInfo bean = new CourseInfo();
         setCourseBeanBaseAttrs(bean, singleCourse);
         //将当前课程bean添加到所有课程集合中去
@@ -388,7 +388,7 @@ public class CoursePresenter implements CourseContract.ICoursePresenter {
      * 生成要显示的课程集合
      *      遍历 所有课程的的集合
      *          从中找到 当前周 需要显示出来的课程
-     *      如果找到就将其放到mShowCourseInfos需要显示的课程集合中去
+     *      如果找到就将其放到mShowCourseInfos(需要显示的)课程集合中去
      *
      */
     private void initShowCourseInfos() {

@@ -2,6 +2,7 @@ package com.study.zouchao.finalexamproject_two.course.view;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,9 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.TextView;
 
+import com.alamkanak.weekview.MonthLoader;
+import com.alamkanak.weekview.WeekView;
+import com.alamkanak.weekview.WeekViewEvent;
 import com.study.zouchao.finalexamproject_three.R;
+import com.study.zouchao.finalexamproject_two.course.adapter.CurriculumScheduleBgAdapter;
 import com.study.zouchao.finalexamproject_two.course.contract.CourseContract;
 import com.study.zouchao.finalexamproject_two.course.presenter.CoursePresenter;
 import com.study.zouchao.finalexamproject_two.login.model.C_XMUT;
@@ -29,22 +35,25 @@ import butterknife.OnClick;
  * Created by Administrator on 2016/12/9.
  */
 
-public class CourseFragment extends Fragment implements CourseContract.ICourseView {
+public class CourseFragment extends Fragment implements CourseContract.ICourseView, WeekView.EventClickListener, WeekView.EventLongPressListener, MonthLoader.MonthChangeListener {
     //Loading
     private ProgressDialog mLoading;
+    @BindView(R.id.id_weekview)
+    WeekView mWeekView;
     //课程表格
     @BindView(R.id.id_tv_course_table)
     TextView mTvCourseTable;
     //用于保存每一天LinearLayout的Id的数组
-    private int[] mWeeksId = new int[] {R.id.id_ll_week_1, R.id.id_ll_week_2,
-                                        R.id.id_ll_week_3, R.id.id_ll_week_4,
-                                        R.id.id_ll_week_5, R.id.id_ll_week_6,
-                                        R.id.id_ll_week_7};
+    private int[] mWeeksId = new int[]{R.id.id_ll_week_1, R.id.id_ll_week_2,
+            R.id.id_ll_week_3, R.id.id_ll_week_4,
+            R.id.id_ll_week_5, R.id.id_ll_week_6,
+            R.id.id_ll_week_7};
     private View mContentView;
     private CourseContract.ICoursePresenter mPresenter;
 
     //滚动选择器的item
     private List<String> mPickItems;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +66,7 @@ public class CourseFragment extends Fragment implements CourseContract.ICourseVi
         ButterKnife.bind(this, mContentView);
         setTitle("");
         initView();
+//        initWeekView();
         //创建Presenter
         mPresenter = new CoursePresenter(getContext(), this);
         return mContentView;
@@ -65,9 +75,20 @@ public class CourseFragment extends Fragment implements CourseContract.ICourseVi
     private void initView() {
         mPickItems = new ArrayList<>();
         //初始化
-        for (int i = 0; i < C_XMUT.totalWeeksNum; i ++) {
-            mPickItems.add("第"+(i+1)+"周");
+        for (int i = 0; i < C_XMUT.totalWeeksNum; i++) {
+            mPickItems.add("第" + (i + 1) + "周");
         }
+
+    }
+
+    private void initWeekView() {
+        // Set an action when any event is clicked.
+        mWeekView.setOnEventClickListener(this);
+        // The week view has infinite scrolling horizontally. We have to provide the events of a
+        // month every time the month changes on the week view.
+        mWeekView.setMonthChangeListener(this);
+        // Set long press listener for events.
+        mWeekView.setEventLongPressListener(this);
     }
 
     @Override
@@ -90,6 +111,7 @@ public class CourseFragment extends Fragment implements CourseContract.ICourseVi
 
     /**
      * 显示Loading动画
+     *
      * @param isShow
      */
     @Override
@@ -105,25 +127,29 @@ public class CourseFragment extends Fragment implements CourseContract.ICourseVi
     @OnClick({R.id.id_fab})
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.id_fab :
-                //滚动选择器
-                new WheelViewDialog(getContext())
-                        .setTitle("选择当前周数:")
-                        .setButtonText("确定")
-                        .setDialogStyle(Color.parseColor("#6699ff"))
-                        .setCount(5)
-                        .setItems(mPickItems)
-                        .setSelection(C_XMUT.CURRENT_WEEK - 1)                        //设置当前周
-                        .setOnDialogItemClickListener(new WheelViewDialog.OnDialogItemClickListener() {
-                            @Override
-                            public void onItemClick(int position, String s) {
-                                Log.i("当前周数", position+1+"");
-                                mPresenter.clickFab(position+1);
-                            }
-                        })
-                        .show();
+            case R.id.id_fab:
+                showPickView();
                 break;
         }
+    }
+
+    private void showPickView() {
+        //滚动选择器
+        new WheelViewDialog(getContext())
+                .setTitle("选择当前周数:")
+                .setButtonText("确定")
+                .setDialogStyle(Color.parseColor("#6699ff"))
+                .setCount(5)
+                .setItems(mPickItems)
+                .setSelection(C_XMUT.CURRENT_WEEK - 1)                        //设置当前周
+                .setOnDialogItemClickListener(new WheelViewDialog.OnDialogItemClickListener() {
+                    @Override
+                    public void onItemClick(int position, String s) {
+                        Log.i("当前周数", position + 1 + "");
+                        mPresenter.clickFab(position + 1);
+                    }
+                })
+                .show();
     }
 
     @Override
@@ -131,5 +157,26 @@ public class CourseFragment extends Fragment implements CourseContract.ICourseVi
         //取消绑定
         mPresenter.onDestroyPresenter();
         super.onDestroy();
+    }
+
+
+    /**
+     * 课表
+     * @param event
+     * @param eventRect
+     */
+    @Override
+    public void onEventClick(WeekViewEvent event, RectF eventRect) {
+
+    }
+
+    @Override
+    public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
+
+    }
+
+    @Override
+    public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
+        return null;
     }
 }

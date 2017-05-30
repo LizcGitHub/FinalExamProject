@@ -87,5 +87,8 @@ dependencies {
     //    compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
     //pickview
     compile files('libs/wheelview_1.3.3.jar')
+    //simple event bus
     compile files('libs/simple_eventbus.jar')
+    //课程表view
+    compile 'com.github.alamkanak:android-week-view:1.2.6'
 }
