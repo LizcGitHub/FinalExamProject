@@ -109,13 +109,15 @@ public class MyExpandableListViewAdapter
             holder = new ViewHolder();
             holder.tvChildTitle = (TextView) convertView.findViewById(R.id.id_data_child_title);
             holder.ivChild = (ImageView) convertView.findViewById(R.id.id_iv_data_leave);
-            holder.tvChildTime = (TextView) convertView.findViewById(R.id.id_data_child_time);
+//            holder.tvChildTime = (TextView) convertView.findViewById(R.id.id_data_child_time);
+            holder.tvFileSize = (TextView) convertView.findViewById(R.id.id_tv_file_size);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         final FileInfo fileInfo = mMap.get(mParent.get(groupPosition)).get(childPosition);
         holder.tvChildTitle.setText(fileInfo.getFileName());
+        holder.tvFileSize.setText("文件大小："+fileInfo.getTotalSizeByAdd()+"M");
         //开始下载点击事件
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,5 +168,6 @@ public class MyExpandableListViewAdapter
         ImageView ivChild;
         TextView tvChildTitle;
         TextView tvChildTime;
+        TextView tvFileSize;
     }
 }

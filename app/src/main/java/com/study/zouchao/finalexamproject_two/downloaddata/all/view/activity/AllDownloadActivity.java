@@ -12,12 +12,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.Formatter;
 import android.view.Display;
+import android.view.View;
 import android.widget.TextView;
 
 import com.study.zouchao.finalexamproject_three.R;
 import com.study.zouchao.finalexamproject_two.downloaddata.all.view.adapter.MainFragmentAdapter;
+import com.study.zouchao.finalexamproject_two.downloaddata.db.DownloadedDAOImpl;
+import com.study.zouchao.finalexamproject_two.downloaddata.db.DownloadingDAOImpl;
 import com.study.zouchao.finalexamproject_two.downloaddata.downloaded.view.DownloadedFragment;
 import com.study.zouchao.finalexamproject_two.downloaddata.downloading.view.fragment.DownloadingFragment;
+import com.study.zouchao.finalexamproject_two.util.App;
 import com.study.zouchao.finalexamproject_two.util.EventBusEvent;
 import com.study.zouchao.finalexamproject_two.util.EventBusEvent_C;
 import com.study.zouchao.finalexamproject_two.util.ToastUtils;
@@ -31,11 +35,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class AllDownloadActivity extends AppCompatActivity {
     @BindView(R.id.id_viewpager)
     ViewPager mViewPager;
+    @BindView(R.id.id_tv_finish)
+    TextView mTvFinish;
     private MainFragmentAdapter mAdapter;
     private Fragment mFragmentDownloading, mFragmentDownloaded;
     private Display display = null;  //获取屏幕
@@ -121,6 +128,22 @@ public class AllDownloadActivity extends AppCompatActivity {
         ToastUtils.showShort(this, "更新ROM大小");
     }
 
+
+    @OnClick({R.id.id_tv_finish})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.id_tv_finish :
+                clearAll();
+                break;
+        }
+    }
+
+    private void clearAll() {
+        //删除数据库
+        DownloadingDAOImpl.deleteDownloadingList(this);
+        DownloadedDAOImpl.deleteDownloadedList(this);
+        ToastUtils.showShort(App.getAppContext(), "Clear All Success");
+    }
 
     /**
      * 滑动监听

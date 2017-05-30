@@ -38,7 +38,7 @@
             android:layout_below="@id/id_data_child_title"
             android:paddingTop="2dp"
             android:textSize="5pt"
-            android:id="@+id/id_data_child_time"
-            android:text="课程时长：13分钟"/>
+            android:id="@+id/id_tv_file_size"
+            android:text="文件大小：xxM"/>
     </RelativeLayout>
 </LinearLayout>

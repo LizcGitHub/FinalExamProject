@@ -105,18 +105,18 @@ public class DownloadingFragment extends Fragment implements IDownloadingContrac
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.id_btn_clearAll :
-                clearAll();
+//                clearAll();
                 break;
         }
 
     }
 
-    private void clearAll() {
-        //删除数据库
-        DownloadingDAOImpl.deleteDownloadingList(getActivity());
-        DownloadedDAOImpl.deleteDownloadedList(getActivity());
-        ToastUtils.showShort(App.getAppContext(), "Clear All Success");
-    }
+//    private void clearAll() {
+//        //删除数据库
+//        DownloadingDAOImpl.deleteDownloadingList(getActivity());
+//        DownloadedDAOImpl.deleteDownloadedList(getActivity());
+//        ToastUtils.showShort(App.getAppContext(), "Clear All Success");
+//    }
 
 
 //    /**

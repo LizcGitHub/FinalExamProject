@@ -16,5 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="点击删除下载记录"/>
+        android:text="点击删除下载记录"
+        android:visibility="gone"/>
 </LinearLayout>
