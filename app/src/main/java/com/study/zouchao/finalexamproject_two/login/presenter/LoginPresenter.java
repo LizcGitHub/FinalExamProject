@@ -284,7 +284,6 @@ public class LoginPresenter implements LoginContract.ILoginPresenter {
     public void onDestroyPresenter() {
         //销毁
         mModel.onDestroyModel();
-        //TODO:官方写法
 //        //取消和View层的绑定
 //        if (mView != null)
 //            mView = null;

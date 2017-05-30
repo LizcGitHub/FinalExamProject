@@ -45,7 +45,9 @@
         </activity>
 
         <!-- pdfActivity -->
-        <activity android:name="com.app.readpdfdemo.PdfActivity"></activity>
+        <activity android:name="com.app.readpdfdemo.PdfActivity">
+
+        </activity>
 
         <!--photoview -->
         <activity
@@ -58,7 +60,9 @@
         <!-- 正在下载 和 已下载 -->
         <activity
             android:name="com.study.zouchao.finalexamproject_two.downloaddata.all.view.activity.AllDownloadActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        </activity>
 
 
         <!--查询成绩-->
@@ -71,6 +75,17 @@
 
         </activity>
 
+        <!--查成绩、课表main-->
+        <activity android:name="com.study.zouchao.finalexamproject_two.mainxmut.view.MainXUMTActivity">
+
+        </activity>
+
+        <!-- 学期pickerviewActivity -->
+        <activity
+            android:name="com.study.zouchao.finalexamproject_two.util.ui.MyPickViewActivity"
+            android:theme="@android:style/Theme.Material.Light.Dialog">
+
+        </activity>
 
         <!-- Service -->
         <service android:name="com.study.zouchao.finalexamproject_two.service.DownloadService"></service>

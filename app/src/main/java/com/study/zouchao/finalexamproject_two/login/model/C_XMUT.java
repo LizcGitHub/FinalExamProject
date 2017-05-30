@@ -37,7 +37,7 @@ public class C_XMUT {
 
 
     /**
-     * MainActivity
+     * MainXUMTActivity
      */
     /**
      * 登录成功 主页 key value

@@ -87,7 +87,9 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textSize="@dimen/loginPage_edit_textSize"
-                    android:id="@+id/id_edit_checkcode"/>
+                    android:id="@+id/id_edit_checkcode">
+                    <requestFocus/>
+                </EditText>
             </android.support.design.widget.TextInputLayout>
 
             <ImageView

@@ -19,6 +19,7 @@ import com.study.zouchao.finalexamproject_two.base_zou.ZouImgLoader;
 import com.study.zouchao.finalexamproject_two.login.contract.LoginContract;
 import com.study.zouchao.finalexamproject_two.login.model.C_XMUT;
 import com.study.zouchao.finalexamproject_two.login.presenter.LoginPresenter;
+import com.study.zouchao.finalexamproject_two.mainxmut.view.MainXUMTActivity;
 import com.study.zouchao.finalexamproject_two.util.DialogUtil;
 import com.study.zouchao.finalexamproject_two.util.SharedPreUtil;
 import com.study.zouchao.finalexamproject_two.util.ToastUtils;
@@ -106,7 +107,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.IL
     @Override
     public void action2MainActivity(Connection.Response response) {
         ToastUtils.showShort(this, "登陆成功!!!");
-//        MainActivity.actionMain(this, C_XMUT.LOGINED_SUCCESS_HTML, response.body().trim());
+        MainXUMTActivity.actionMain(this, C_XMUT.LOGINED_SUCCESS_HTML, response.body().trim());
     }
 
     /**
