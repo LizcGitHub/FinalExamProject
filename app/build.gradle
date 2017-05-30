@@ -85,4 +85,6 @@ dependencies {
     compile 'jp.wasabeef:glide-transformations:2.0.2'
     // If you want to use the GPU Filters       //注：加了这个依赖, pdf不可用
 //    compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
+    //pickview
+    compile files('libs/wheelview_1.3.3.jar')
 }

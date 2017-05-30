@@ -108,6 +108,7 @@ public class TravelRecyclerViewAdapter extends RecyclerView.Adapter<TravelRecycl
                 @Override
                 public void onClick(View v) {
                     if (mListener != null) {
+                        if (mDatas.size()-1< getAdapterPosition()) return;
                         TravelListResult.ResultBean item = mDatas.get(getAdapterPosition());
                         mListener.onItemClick(mIv, item.getTitle(), item.getCoverImageUrl(), item.getH5Url());
                     }

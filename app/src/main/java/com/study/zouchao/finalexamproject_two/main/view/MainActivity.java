@@ -8,6 +8,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -21,6 +22,9 @@ import com.study.zouchao.finalexamproject_three.R;
 import com.study.zouchao.finalexamproject_two.downloaddata.all.view.activity.AllDownloadActivity;
 import com.study.zouchao.finalexamproject_two.login.view.LoginActivity;
 import com.study.zouchao.finalexamproject_two.pdfview.PdfViewActivity;
+import com.study.zouchao.finalexamproject_two.util.EventBusEvent;
+import com.study.zouchao.finalexamproject_two.util.EventBusEvent_C;
+import com.study.zouchao.finalexamproject_two.util.EventBusUtils;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -132,4 +136,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //TODO:还有个头像 图片 开启线程加载
 //        mIsInitViewFinish = true;
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            EventBusUtils.post(new EventBusEvent(EventBusEvent_C.EVENT_ON_BACK_IN_MAINACTIVITY, "main按下back"));
+            return true;           //选择为true表示拦截 //会导致原本按下back会销毁activity但是现在不会了
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
 }

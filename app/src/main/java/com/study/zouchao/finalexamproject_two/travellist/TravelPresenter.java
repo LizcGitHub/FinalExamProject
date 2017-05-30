@@ -9,12 +9,17 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.study.zouchao.finalexamproject_three.R;
-import com.study.zouchao.finalexamproject_two.traveldetail.TravelDetailActivity;
+import com.study.zouchao.finalexamproject_two.base_zou.tuple.FiveTuple;
+import com.study.zouchao.finalexamproject_two.base_zou.tuple.FourTuple;
 import com.study.zouchao.finalexamproject_two.travellist.adapter.TravelRecyclerViewAdapter;
 import com.study.zouchao.finalexamproject_two.travellist.entity.TravelListResult;
 import com.study.zouchao.finalexamproject_two.travellist.model.TravelCacheModel;
 import com.study.zouchao.finalexamproject_two.travellist.model.TravelItem;
 import com.study.zouchao.finalexamproject_two.travellist.model.TravelModel;
+import com.study.zouchao.finalexamproject_two.util.EventBusEvent;
+import com.study.zouchao.finalexamproject_two.util.EventBusEvent_C;
+import com.study.zouchao.finalexamproject_two.util.EventBusUtils;
+import com.study.zouchao.finalexamproject_two.util.StringUtils;
 import com.study.zouchao.finalexamproject_two.util.ToastUtils;
 
 import java.util.ArrayList;
@@ -197,7 +202,11 @@ public class TravelPresenter implements TravelContract.ITravelPresenter, TravelR
 
     @Override
     public void onItemClick(View v, String title, String bgImg, String url) {
+        FourTuple travelDetailInfos = new FourTuple<>(v, url, title, bgImg);
         //TODO:跳转：替换Fragment
-        TravelDetailActivity.actionStartTravelDetailActivity(mContext, title, bgImg, url);
+        EventBusUtils.post(
+                new EventBusEvent(EventBusEvent_C.EVENT_GOTO_TRAVEL_DETAIL_FRAGMENT, travelDetailInfos, "")
+        );
+//        TravelDetailActivity.actionStartTravelDetailActivity(mContext, title, bgImg, url);
     }
 }

@@ -10,6 +10,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.AndroidException;
@@ -44,6 +45,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.jsoup.select.Evaluator;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -70,6 +72,11 @@ public class TravelDetailFragment extends MyBaseFragment {
     ImageView mIvBg;
     @BindView(R.id.id_wv)
     WebView mWv;
+
+    private static final String KEY_URL = "URL";
+    private static final String KEY_BG_IMG = "BG_IMG";
+    private static final String KEY_TITLE = "TITLE";
+
     private String mUrl;
     private String mBgImg;
     private String mTitle;
@@ -91,12 +98,6 @@ public class TravelDetailFragment extends MyBaseFragment {
         public void handleMessage(Message msg) {
             final String url = (String) msg.obj;
             Log.d("webview", "...");
-//            ToastUtils.showLong(getActivity(), "图片点击事件！！"+img);
-//            final View view = LayoutInflater.from(getActivity()).inflate(R.layout.activity_big_pic, null, false);
-//            final PhotoView iv = (PhotoView) view.findViewById(R.id.id_iv);
-//            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-//                    .setView(view);
-//            AlertDialog dialog = builder.create();
 
             Dialog dialog = new Dialog(getActivity(), R.style.transparentBgDialog);
             dialog.show();
@@ -106,7 +107,7 @@ public class TravelDetailFragment extends MyBaseFragment {
             Display display = getActivity().getWindowManager().getDefaultDisplay();
             int width = display.getWidth();
             int height = display.getHeight();
-//设置dialog的宽高为屏幕的宽高
+            //设置dialog的宽高为屏幕的宽高
             ViewGroup.LayoutParams layoutParams = new  ViewGroup.LayoutParams(width, height);
             dialog.setContentView(viewDialog, layoutParams);
             ZouImgLoader.loadImageWithOriginalSize(getActivity(), iv, url, R.drawable.error_pic);
@@ -166,7 +167,6 @@ public class TravelDetailFragment extends MyBaseFragment {
         ZouImgLoader.getBitmapByUrl(getActivity(), url, options.outWidth, options.outHeight, new ZouImgLoader.IBitmapReadyListener() {
             @Override
             public void onSuccess(Bitmap bitmap) {
-                Log.d("webview", "...");
 //            ToastUtils.showLong(getActivity(), "图片点击事件！！"+img);
                 final View view = LayoutInflater.from(getActivity()).inflate(R.layout.activity_big_pic, null, false);
                 final PhotoView iv = (PhotoView) view.findViewById(R.id.id_iv);
@@ -243,20 +243,46 @@ public class TravelDetailFragment extends MyBaseFragment {
     }
 
 
+    public TravelDetailFragment()   {}
+
+    public static TravelDetailFragment newInstance(String url, String title, String bgImg) {
+        TravelDetailFragment fragment = new TravelDetailFragment();
+        initArgument2Fragment(fragment, url, title, bgImg);
+        return fragment;
+    }
+
+    public static void initArgument2Fragment(Fragment fragment, String url, String title, String bgImg) {
+        Bundle bundle = new Bundle();
+        bundle.putString(KEY_URL, url);
+        bundle.putString(KEY_TITLE, title);
+        bundle.putString(KEY_BG_IMG, bgImg);
+        fragment.setArguments(bundle);
+    }
+
+    private void assignArgumentFromBundle(Bundle bundle) {
+        mUrl = bundle.getString(KEY_URL);
+        mTitle = bundle.getString(KEY_TITLE);
+        mBgImg = bundle.getString(KEY_BG_IMG);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            assignArgumentFromBundle(getArguments());
+        }
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d("replace>>>", "detail");
         setUrl();
-//        init2();
         load();
     }
 
     private void setUrl() {
-        Intent intent = getActivity().getIntent();
-        if (intent == null) return;
-        mUrl = intent.getStringExtra(TravelDetailActivity.KEY_URL);
-        mTitle = intent.getStringExtra(TravelDetailActivity.KEY_TITLE);
-        mBgImg = intent.getStringExtra(TravelDetailActivity.KEY_BG_IMG);
+        if (mUrl == null)   return;
         mUrl = mUrl.replace("webapp", "html5");
         showUi();
     }
@@ -339,6 +365,12 @@ public class TravelDetailFragment extends MyBaseFragment {
 
     private String changeDataSrc2Src(String content) {
         return content.replace("data-src", "src");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("返回栈生命周期", "detail:onDestroy");
     }
 
     @Override

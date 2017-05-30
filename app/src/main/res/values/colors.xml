@@ -19,6 +19,10 @@
 
     <color name="transparent">#00000000</color>
 
+
+    <!--main-->
+    <color name="bgToolbar">#FF4081</color>
+
     <!--登陆界面-->
     <color name="colorLoginBackground">#ECEDF1</color>
     <color name="colorEditTextBackground">#FFFFFF</color>

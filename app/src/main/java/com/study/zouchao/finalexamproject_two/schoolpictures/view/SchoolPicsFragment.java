@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.study.zouchao.finalexamproject_three.R;
@@ -42,6 +43,8 @@ public class SchoolPicsFragment extends MyBaseFragment implements SchoolPicsCont
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d("replace>>>", "list");
+
         initView();
     }
 

@@ -7,6 +7,7 @@ import java.security.PublicKey;
  */
 
 public class EventBusEvent_C {
+
     /**
      * 取消后remove service里正在下载任务集合当中的当前task
      */
@@ -31,4 +32,30 @@ public class EventBusEvent_C {
      * 更新当前手机剩余ROM大小
      */
     public static final String EVENT_UPDATE_ROM_UI = "EVENT_UPDATE_ROM_UI";
+
+    /**
+     * 用户旅游详情页
+     */
+    public static final String EVENT_GOTO_TRAVEL_DETAIL_FRAGMENT = "EVENT_GOTO_TRAVEL_DETAIL_FRAGMENT";
+
+    /**
+     * 控制main的toolbar的显示与隐藏
+     */
+    public static final String EVENT_TOGGLE_TOOLBAR = "EVENT_TOGGLE_TOOLBAR";
+
+    /**
+     * 检查当前第三个页面是哪个Fragment
+     */
+    public static final String EVENT_CHECK_CURRENT_THIRD_PAGE_FRAGMENT = "EVENT_CHECK_CURRENT_THIRD_PAGE_FRAGMENT";
+
+    /**
+     *  在MainActivity按下back键
+     */
+    public static final String EVENT_ON_BACK_IN_MAINACTIVITY = "EVENT_ON_BACK_IN_MAINACTIVITY";
+
+    /**
+     * 第三个页面(旅游)
+     */
+    public static final String EVENT_ON_HANDLE_BACK_EVENT = "EVENT_ON_HANDLE_BACK_EVENT";
+
 }

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.study.zouchao.finalexamproject_three.R;
@@ -30,10 +31,31 @@ public class TravelFragment extends MyBaseFragment
 
     private TravelContract.ITravelPresenter mPresenter;
 
+
+    private static final String KEY_PARAM1 = "KEY_PARAM1";
+
+    public TravelFragment() {}
+
+    public static TravelFragment newInstance() {
+        TravelFragment fragment = new TravelFragment();
+        fragment.setArguments(null);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+
+        }
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPresenter = new TravelPresenter(getActivity(), this);
+        Log.d("replace>>>", "list");
+
         init();
     }
 

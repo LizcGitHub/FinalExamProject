@@ -45,6 +45,7 @@ public class HomePageFragment extends MyBaseFragment
     private static final String KEY_PARAM1 = "KEY_PARAM1",
                                 KEY_PARAM2 = "KEY_PARAM2";
     private String mParam1, mParam2;
+
     public static HomePageFragment newInstance(String param1, String param2) {
         Bundle bundle = new Bundle();
         bundle.putString(KEY_PARAM1, param1);
