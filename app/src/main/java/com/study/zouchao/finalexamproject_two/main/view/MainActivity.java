@@ -22,9 +22,11 @@ import com.study.zouchao.finalexamproject_three.R;
 import com.study.zouchao.finalexamproject_two.downloaddata.all.view.activity.AllDownloadActivity;
 import com.study.zouchao.finalexamproject_two.login.view.LoginActivity;
 import com.study.zouchao.finalexamproject_two.pdfview.PdfViewActivity;
+import com.study.zouchao.finalexamproject_two.searchbusactivity.SearchBusActivity;
 import com.study.zouchao.finalexamproject_two.util.EventBusEvent;
 import com.study.zouchao.finalexamproject_two.util.EventBusEvent_C;
 import com.study.zouchao.finalexamproject_two.util.EventBusUtils;
+import com.study.zouchao.finalexamproject_two.util.ToastUtils;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -81,7 +83,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             AllDownloadActivity.actionStartAllDownloadActivity(this);
         } else if (id == R.id.nav_slideshow) {
             Toast.makeText(getBaseContext(), "敬请期待~~~", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_map) {
+//            ToastUtils.showShort(this, "地图");
+            SearchBusActivity.actionSearchBusActivity(this);
+        } if (id == R.id.nav_manage) {
             replaceFragment(3);
         } else if (id == R.id.nav_share) {
         }

@@ -32,7 +32,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="ApQXCR6ZFbVKOxQSdGffobxW31B7XV3Y" />
         <!-- main -->
         <activity
             android:name="com.study.zouchao.finalexamproject_two.main.view.MainActivity"
@@ -85,6 +87,11 @@
             android:name="com.study.zouchao.finalexamproject_two.util.ui.MyPickViewActivity"
             android:theme="@android:style/Theme.Material.Light.Dialog">
 
+        </activity>
+
+
+        <!--查询公交Activity-->
+        <activity android:name="com.study.zouchao.finalexamproject_two.searchbusactivity.SearchBusActivity">
         </activity>
 
         <!-- Service -->

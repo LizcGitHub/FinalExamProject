@@ -49,8 +49,6 @@ public class MyExpandableListViewAdapter
         initParent();
     }
 
-
-    //
     @Override
     public int getGroupCount() {
         return mMap.size();
@@ -167,7 +165,6 @@ public class MyExpandableListViewAdapter
     class ViewHolder{
         ImageView ivChild;
         TextView tvChildTitle;
-        TextView tvChildTime;
         TextView tvFileSize;
     }
 }
