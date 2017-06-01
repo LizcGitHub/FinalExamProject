@@ -71,6 +71,14 @@ public class ZouImgLoader {
                 .into(iv);
     }
 
+    public static void loadImageWithBlur(Context context, ImageView iv, int url, int errorImg) {
+        Glide.with(context)
+                .load(url)
+                .error(errorImg)
+                .bitmapTransform(new BlurTransformation(context))
+                .into(iv);
+    }
+
     public static void loadImageWithOriginalSize(Context context, ImageView iv, String urlImg, int errorImg) {
         Glide.with(context)
                 .load(urlImg)

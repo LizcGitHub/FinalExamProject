@@ -19,10 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.study.zouchao.finalexamproject_three.R;
+import com.study.zouchao.finalexamproject_two.base_zou.ZouImgLoader;
 import com.study.zouchao.finalexamproject_two.downloaddata.all.view.activity.AllDownloadActivity;
 import com.study.zouchao.finalexamproject_two.login.view.LoginActivity;
 import com.study.zouchao.finalexamproject_two.pdfview.PdfViewActivity;
 import com.study.zouchao.finalexamproject_two.searchbusactivity.SearchBusActivity;
+import com.study.zouchao.finalexamproject_two.searchtel.SearchTelActivity;
 import com.study.zouchao.finalexamproject_two.util.EventBusEvent;
 import com.study.zouchao.finalexamproject_two.util.EventBusEvent_C;
 import com.study.zouchao.finalexamproject_two.util.EventBusUtils;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ImageView mIvHeadImg;
     private TextView mTvNickname, mTvEmail;
     private boolean mIsFirstComing = true;              //第一次进入    (另一状态表示返回)    //TODO:可以考虑去除 考虑到：当页面被重新加载时
+    private ImageView mIvBg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            window.setNavigationBarColor(Color.TRANSPARENT);
 //        }
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        mIvBg = (ImageView) navigationView.findViewById(R.id.id_iv_head_bg);
+        ZouImgLoader.loadImageWithBlur(this, mIvBg, R.drawable.google_sm_, R.drawable.error_pic);
         navigationView.setNavigationItemSelectedListener(this);
         initHeadLayout(navigationView);
     }
@@ -77,34 +82,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.nav_camera) {
-            replaceFragment(0);
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_gallery) {
             AllDownloadActivity.actionStartAllDownloadActivity(this);
         } else if (id == R.id.nav_slideshow) {
-            Toast.makeText(getBaseContext(), "敬请期待~~~", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "请先登陆~~~", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_map) {
-//            ToastUtils.showShort(this, "地图");
             SearchBusActivity.actionSearchBusActivity(this);
         } if (id == R.id.nav_manage) {
-            replaceFragment(3);
+            Toast.makeText(getBaseContext(), "请先登陆~~~", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_share) {
+            SearchTelActivity.actionStartSearchTelActivity(this);
+        } else if (id == R.id.nav_send) {
+            Toast.makeText(getBaseContext(), "敬请期待~~~", Toast.LENGTH_SHORT).show();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    private void replaceFragment(int fragmentIndex) {
-        Fragment fragment = null;
-//        if (fragmentIndex == 0)
-//            fragment = new HomePageFragment();
-//        if (fragmentIndex == 3)
-//            fragment = new AboutUsFragment();
-//        android.app.FragmentManager fragmentManager = getFragmentManager();
-//        fragmentManager.beginTransaction()
-//                .replace(R.id.content_frame, fragment)
-//                .commit();   //提交事务
-    }
+
     /* 据说是可以 防止 Activity销毁了 Fragment没销毁*/
     @Override
     protected void onSaveInstanceState(Bundle outState) {

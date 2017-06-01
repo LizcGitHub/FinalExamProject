@@ -44,11 +44,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <!-- pdfActivity -->
-        <activity android:name="com.app.readpdfdemo.PdfActivity"></activity>
+        <activity android:name="com.app.readpdfdemo.PdfActivity" />
 
         <!-- photoview -->
         <activity
@@ -61,31 +60,32 @@
         <!-- 正在下载 和 已下载 -->
         <activity
             android:name="com.study.zouchao.finalexamproject_two.downloaddata.all.view.activity.AllDownloadActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <!-- 查询成绩 -->
-        <activity android:name="com.study.zouchao.finalexamproject_two.score.view.activity.ScoreActivity"></activity>
+        <activity android:name="com.study.zouchao.finalexamproject_two.score.view.activity.ScoreActivity" />
 
         <!-- 查询课程表 -->
-        <activity android:name="com.study.zouchao.finalexamproject_two.course.view.CourseActivity"></activity>
+        <activity android:name="com.study.zouchao.finalexamproject_two.course.view.CourseActivity" />
 
         <!-- 查成绩、课表main -->
-        <activity android:name="com.study.zouchao.finalexamproject_two.mainxmut.view.MainXUMTActivity"></activity>
+        <activity android:name="com.study.zouchao.finalexamproject_two.mainxmut.view.MainXUMTActivity" />
 
         <!-- 学期pickerviewActivity -->
         <activity
             android:name="com.study.zouchao.finalexamproject_two.util.ui.MyPickViewActivity"
-            android:theme="@android:style/Theme.Material.Light.Dialog"></activity>
+            android:theme="@android:style/Theme.Material.Light.Dialog" />
 
         <!-- 查询公交Activity -->
-        <activity android:name="com.study.zouchao.finalexamproject_two.searchbusactivity.SearchBusActivity"></activity>
+        <activity android:name="com.study.zouchao.finalexamproject_two.searchbusactivity.SearchBusActivity" />
 
         <!-- Service -->
         <service android:name="com.study.zouchao.finalexamproject_two.service.DownloadService" />
 
-        <activity android:name="com.study.zouchao.finalexamproject_two.baidumap.BaiduMapActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+        <activity
+            android:name="com.study.zouchao.finalexamproject_two.baidumap.BaiduMapActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name="com.study.zouchao.finalexamproject_two.searchtel.SearchTelActivity"></activity>
     </application>
 
 </manifest>
