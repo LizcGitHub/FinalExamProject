@@ -44,58 +44,48 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <!-- pdfActivity -->
-        <activity android:name="com.app.readpdfdemo.PdfActivity">
+        <activity android:name="com.app.readpdfdemo.PdfActivity"></activity>
 
-        </activity>
-
-        <!--photoview -->
+        <!-- photoview -->
         <activity
             android:name="com.study.zouchao.finalexamproject_two.util.ui.photoview.DragPhotoActivity"
-            android:theme="@style/translucent"></activity>
+            android:theme="@style/translucent" />
 
         <!-- 登陆 -->
-        <activity android:name="com.study.zouchao.finalexamproject_two.login.view.LoginActivity"></activity>
+        <activity android:name="com.study.zouchao.finalexamproject_two.login.view.LoginActivity" />
 
         <!-- 正在下载 和 已下载 -->
         <activity
             android:name="com.study.zouchao.finalexamproject_two.downloaddata.all.view.activity.AllDownloadActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
-        </activity>
+        <!-- 查询成绩 -->
+        <activity android:name="com.study.zouchao.finalexamproject_two.score.view.activity.ScoreActivity"></activity>
 
+        <!-- 查询课程表 -->
+        <activity android:name="com.study.zouchao.finalexamproject_two.course.view.CourseActivity"></activity>
 
-        <!--查询成绩-->
-        <activity android:name="com.study.zouchao.finalexamproject_two.score.view.activity.ScoreActivity">
-
-        </activity>
-
-        <!--查询课程表-->
-        <activity android:name="com.study.zouchao.finalexamproject_two.course.view.CourseActivity">
-
-        </activity>
-
-        <!--查成绩、课表main-->
-        <activity android:name="com.study.zouchao.finalexamproject_two.mainxmut.view.MainXUMTActivity">
-
-        </activity>
+        <!-- 查成绩、课表main -->
+        <activity android:name="com.study.zouchao.finalexamproject_two.mainxmut.view.MainXUMTActivity"></activity>
 
         <!-- 学期pickerviewActivity -->
         <activity
             android:name="com.study.zouchao.finalexamproject_two.util.ui.MyPickViewActivity"
-            android:theme="@android:style/Theme.Material.Light.Dialog">
+            android:theme="@android:style/Theme.Material.Light.Dialog"></activity>
 
-        </activity>
-
-
-        <!--查询公交Activity-->
-        <activity android:name="com.study.zouchao.finalexamproject_two.searchbusactivity.SearchBusActivity">
-        </activity>
+        <!-- 查询公交Activity -->
+        <activity android:name="com.study.zouchao.finalexamproject_two.searchbusactivity.SearchBusActivity"></activity>
 
         <!-- Service -->
-        <service android:name="com.study.zouchao.finalexamproject_two.service.DownloadService"></service>
+        <service android:name="com.study.zouchao.finalexamproject_two.service.DownloadService" />
+
+        <activity android:name="com.study.zouchao.finalexamproject_two.baidumap.BaiduMapActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

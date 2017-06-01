@@ -91,4 +91,8 @@ dependencies {
     compile files('libs/simple_eventbus.jar')
     //课程表view
     compile 'com.github.alamkanak:android-week-view:1.2.6'
+    //AndroidSlidingUpPanel
+    compile 'com.sothree.slidinguppanel:library:+'
+    //带进度显示的button
+    compile 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3'
 }

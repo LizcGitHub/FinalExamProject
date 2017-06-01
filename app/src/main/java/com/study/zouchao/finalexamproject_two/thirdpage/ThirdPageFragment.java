@@ -1,19 +1,14 @@
 package com.study.zouchao.finalexamproject_two.thirdpage;
 
-import android.app.usage.UsageEvents;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 
 import com.study.zouchao.finalexamproject_three.R;
 import com.study.zouchao.finalexamproject_two.base_zou.MyBaseFragment;
-import com.study.zouchao.finalexamproject_two.base_zou.tuple.FiveTuple;
 import com.study.zouchao.finalexamproject_two.base_zou.tuple.FourTuple;
 import com.study.zouchao.finalexamproject_two.traveldetail.TravelDetailFragment;
 import com.study.zouchao.finalexamproject_two.travellist.TravelFragment;
@@ -21,17 +16,10 @@ import com.study.zouchao.finalexamproject_two.util.EventBusEvent;
 import com.study.zouchao.finalexamproject_two.util.EventBusEvent_C;
 import com.study.zouchao.finalexamproject_two.util.EventBusUtils;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.security.PublicKey;
-import java.util.ArrayList;
-import java.util.IllegalFormatCodePointException;
 import java.util.LinkedList;
-import java.util.List;
-
-import butterknife.ButterKnife;
 
 /**
  * Created by Administrator on 2017/5/29.

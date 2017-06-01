@@ -1,7 +1,6 @@
 package com.study.zouchao.finalexamproject_two.traveldetail;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -12,40 +11,29 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
-import android.util.AndroidException;
 import android.util.Log;
 import android.view.Display;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.webkit.JavascriptInterface;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.study.zouchao.finalexamproject_three.R;
 import com.study.zouchao.finalexamproject_two.base_zou.MyBaseFragment;
 import com.study.zouchao.finalexamproject_two.base_zou.ZouImgLoader;
 import com.study.zouchao.finalexamproject_two.util.C;
-import com.study.zouchao.finalexamproject_two.util.FastBlurUtil;
 import com.study.zouchao.finalexamproject_two.util.H5Util;
-import com.study.zouchao.finalexamproject_two.util.LogLongUtil;
 import com.study.zouchao.finalexamproject_two.util.RxSchedulers;
 import com.study.zouchao.finalexamproject_two.util.StringUtils;
 import com.study.zouchao.finalexamproject_two.util.ToastUtils;
-import com.study.zouchao.finalexamproject_two.util.ui.photoview.DragPhotoActivity;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.jsoup.select.Evaluator;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -55,7 +43,6 @@ import java.net.URL;
 
 import butterknife.BindView;
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import uk.co.senab.photoview.PhotoView;
@@ -103,7 +90,7 @@ public class TravelDetailFragment extends MyBaseFragment {
             dialog.show();
             LayoutInflater inflater = LayoutInflater.from(getActivity());
             View viewDialog = inflater.inflate(R.layout.activity_big_pic, null);
-                        final PhotoView iv = (PhotoView) viewDialog.findViewById(R.id.id_iv);
+            final PhotoView iv = (PhotoView) viewDialog.findViewById(R.id.id_iv);
             Display display = getActivity().getWindowManager().getDefaultDisplay();
             int width = display.getWidth();
             int height = display.getHeight();
@@ -198,8 +185,8 @@ public class TravelDetailFragment extends MyBaseFragment {
 //        mWv.loadUrl(JS_CLICK_IMG);
         if (mWv == null)    return;
         mWv.loadUrl("javascript:(function(){" +
-                                    "var objs = document.getElementsByTagName(\"img\"); " +
-                                    "for(var i=0;i<objs.length;i++)  " +
+                "var objs = document.getElementsByTagName(\"img\"); " +
+                "for(var i=0;i<objs.length;i++)  " +
                 "{"
                 + "    objs[i].onclick=function()  " +
                 "    {  "

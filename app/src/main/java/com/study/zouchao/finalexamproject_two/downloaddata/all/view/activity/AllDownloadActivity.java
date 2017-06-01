@@ -10,6 +10,7 @@ import android.support.v4.view.MenuCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.text.format.Formatter;
 import android.view.Display;
 import android.view.View;
@@ -43,6 +44,14 @@ public class AllDownloadActivity extends AppCompatActivity {
     ViewPager mViewPager;
     @BindView(R.id.id_tv_finish)
     TextView mTvFinish;
+    @BindView(R.id.btn_left)
+    CardView mBtnLeft;
+    @BindView(R.id.btn_right)
+    CardView mBtnRight;
+    @BindView(R.id.id_tv_left)
+    TextView mTvLeft;
+    @BindView(R.id.id_tv_right)
+    TextView mTvRight;
     private MainFragmentAdapter mAdapter;
     private Fragment mFragmentDownloading, mFragmentDownloaded;
     private Display display = null;  //获取屏幕
@@ -151,6 +160,7 @@ public class AllDownloadActivity extends AppCompatActivity {
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageSelected(int index) {
+            showSelectedUi(index);
         }
 
         @Override
@@ -161,6 +171,18 @@ public class AllDownloadActivity extends AppCompatActivity {
         public void onPageScrollStateChanged(int arg0) {
         }
     };
+
+    private void showSelectedUi(int index) {
+        if (index == 0) {
+            mTvLeft.setTextColor(getResources().getColor(R.color.colorAccent));
+            mTvRight.setTextColor(getResources().getColor(R.color.text_color_gray));
+        }
+        if (index == 1){
+
+            mTvRight.setTextColor(getResources().getColor(R.color.colorAccent));
+            mTvLeft.setTextColor(getResources().getColor(R.color.text_color_gray));
+        }
+    }
 
     public static void actionStartAllDownloadActivity(Context context) {
         Intent intent = new Intent(context, AllDownloadActivity.class);
