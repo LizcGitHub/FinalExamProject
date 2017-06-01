@@ -149,7 +149,7 @@ public class HomePagePresenter implements IHomePageContract.IHomePagePresenter {
 
     private void saveNewData2Cache(List<String> newData) {
         mAdCacheModel.save2SharePre(mContext, newData);
-        ToastUtils.showShort(mContext, "轮播图更新成功");
+//        ToastUtils.showShort(mContext, "轮播图更新成功");
     }
 
     private void loadAdDataFromCache() {
@@ -183,7 +183,7 @@ public class HomePagePresenter implements IHomePageContract.IHomePagePresenter {
             public void onSuccess(LinkedHashMap<String, List<DataBean>> data) {
                 sucessGetCourseData(data);
                 toggleCourseDataRefreshing(false);
-                ToastUtils.showShort(mContext, "下载列表更新成功");
+//                ToastUtils.showShort(mContext, "下载列表更新成功");
             }
             @Override
             public void onFailure(Throwable throwable, String msg) {
