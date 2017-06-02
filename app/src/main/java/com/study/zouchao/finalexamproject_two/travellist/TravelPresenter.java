@@ -1,6 +1,7 @@
 package com.study.zouchao.finalexamproject_two.travellist;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -28,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import rx.Subscription;
 import rx.functions.Action1;
 
 /**
@@ -44,6 +46,7 @@ public class TravelPresenter implements TravelContract.ITravelPresenter, TravelR
 //    private List<TravelItem> mData;
     private List<TravelListResult.ResultBean> mData;
 
+    private Subscription mSupConn;
 
     //用户操作：下拉刷新
     private static final String ACTION_REFRESHING = "ACTION_REFRESHING";
@@ -71,7 +74,6 @@ public class TravelPresenter implements TravelContract.ITravelPresenter, TravelR
     private void init() {
         mData = new ArrayList<>();
         mAdapter = new TravelRecyclerViewAdapter(mContext, mData);
-//        mView.setAdapter(mAdapter);
     }
 
     private void toggleLoading(String userAction, boolean isShow) {
@@ -79,27 +81,8 @@ public class TravelPresenter implements TravelContract.ITravelPresenter, TravelR
         if(userAction.equals(ACTION_SEE_MORE))      mView.showSeeMoreLoading(isShow);
     }
 
-    private void loadData() {
-//        loadDataFromCache();
-        onRefreshingData();
-    }
-
-    private void loadDataFromCache() {
-//        List<TravelItem> data = mCacheModel.listSchoolPics(mContext);
-//        if (data==null)  return;
-//        mData.clear();
-//        mData.addAll(data);
-//        mAdapter.notifyDataSetChanged();
-    }
-
     @Override
     public void onRefreshingData() {
-        Log.d("正在加载》？》", mIsLoadingData+"");
-//        if (mIsLoadingData) {
-//            ToastUtils.showShort(mContext.getApplicationContext(), "已经在加载数据、请稍后再试");
-//            toggleLoading(ACTION_REFRESHING, false);
-//            return;
-//        }
         conn(ACTION_REFRESHING);
     }
 
@@ -110,12 +93,10 @@ public class TravelPresenter implements TravelContract.ITravelPresenter, TravelR
         //无数据的情况只能下拉刷新不允许上滑更多   1是footView
         if (mAdapter.getItemCount()<=1)   return;
         if ((mPageIndex)*mPageSize >= mTotalSize) {
-            ToastUtils.showShort(mContext.getApplicationContext(), "无更多数据");
+            mView.showSnackbar("无更多数据", Snackbar.LENGTH_INDEFINITE);
             return;
         }
-//        Log.d("当前pageNo"+mPageNo, "totalsize"+mTotalSize+"。。。我们总数据"+(mAdapter.getItemCount()-1));
         conn(ACTION_SEE_MORE);
-        Log.d("加载更多", "已经加载");
     }
 
     private void conn(final String action) {
@@ -127,7 +108,7 @@ public class TravelPresenter implements TravelContract.ITravelPresenter, TravelR
         if (requestParams==null || requestParams.isEmpty()) return;
         toggleLoading(action, true);
         mIsLoadingData = true;
-        mConnModel.listTravelList(requestParams)
+        mSupConn = mConnModel.listTravelList(requestParams)
                 .subscribe(new Action1<TravelListResult>() {
                     @Override
                     public void call(TravelListResult travelListResult) {
@@ -138,28 +119,40 @@ public class TravelPresenter implements TravelContract.ITravelPresenter, TravelR
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        throwable.printStackTrace();
-                        ToastUtils.showLong(mContext, throwable.getMessage());
+                        failGetList(throwable, action);
                         toggleLoading(action, false);
                         mIsLoadingData = false;
                     }
                 });
     }
 
-    private void saveNewData2Cache(List<TravelItem> newData) {
-        mCacheModel.save2SharePre(mContext, newData);
-    }
-
     private void successGetList(TravelListResult result, String action) {
-        if (action.equals(ACTION_REFRESHING))   mData.clear();
+        if (action.equals(ACTION_REFRESHING)) {
+            mData.clear();
+            saveNewData2Cache(result.getResult());
+        }
         mTotalSize = result.getTotalCount();
-        Log.d("加载更多", "zong:"+mTotalSize);
         List<TravelListResult.ResultBean> newData = result.getResult();
-//        ToastUtils.showLong(mContext, newData.toString());
         mData.addAll(newData);
         mAdapter.notifyDataSetChanged();
-//        saveNewData2Cache(data);
-//        loadDataFromCache();
+    }
+
+    private void failGetList(Throwable throwable, String action) {
+        throwable.printStackTrace();
+        ToastUtils.showLong(mContext, throwable.getMessage());
+        if (action.equals(ACTION_REFRESHING))
+            loadDataFromCache();
+    }
+
+    private void saveNewData2Cache(List<TravelListResult.ResultBean> newData) {
+        mCacheModel.saveTravelData2SharePre(mContext, newData);
+    }
+
+    private void loadDataFromCache() {
+        List<TravelListResult.ResultBean> cacheData =  mCacheModel.listTravelData(mContext);
+        mData.clear();
+        mData.addAll(cacheData);
+        mAdapter.notifyDataSetChanged();
     }
 
 
@@ -178,7 +171,6 @@ public class TravelPresenter implements TravelContract.ITravelPresenter, TravelR
         params.put("PageIndex", mPageIndex+"");
         params.put("PhotoHeight", mPhotoHeight+"");
         params.put("PhotoWidth", mPhotoWidth+"");
-        Log.i(TAG+"请求travelitemlist的参数:.."+params.toString(), "请求的页码:"+mPageIndex);
         return params;
     }
 
@@ -204,10 +196,13 @@ public class TravelPresenter implements TravelContract.ITravelPresenter, TravelR
     @Override
     public void onItemClick(View v, String title, String bgImg, String url) {
         FourTuple travelDetailInfos = new FourTuple<>(v, url, title, bgImg);
-        //TODO:跳转：替换Fragment
         EventBusUtils.post(
                 new EventBusEvent(EventBusEvent_C.EVENT_GOTO_TRAVEL_DETAIL_FRAGMENT, travelDetailInfos, "")
         );
-//        TravelDetailActivity.actionStartTravelDetailActivity(mContext, title, bgImg, url);
+    }
+
+    @Override
+    public void onDestroyPresente() {
+        if (mSupConn!=null && !mSupConn.isUnsubscribed())    mSupConn.unsubscribe();
     }
 }

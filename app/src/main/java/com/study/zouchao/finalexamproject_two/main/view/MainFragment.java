@@ -2,9 +2,11 @@ package com.study.zouchao.finalexamproject_two.main.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -18,6 +20,8 @@ import com.study.zouchao.finalexamproject_two.travellist.TravelFragment;
 import com.study.zouchao.finalexamproject_two.util.EventBusEvent;
 import com.study.zouchao.finalexamproject_two.util.EventBusEvent_C;
 import com.study.zouchao.finalexamproject_two.util.EventBusUtils;
+import com.study.zouchao.finalexamproject_two.util.StringUtils;
+import com.study.zouchao.finalexamproject_two.util.ToastUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -78,9 +82,12 @@ public class MainFragment extends MyBaseFragment implements TabLayout.OnTabSelec
 
         mFragmentsList.add(HomePageFragment.newInstance(null, null));
         mFragmentsList.add(SchoolPicsFragment.newInstance(null, null));
-//        mFragmentsList.add(new Fragment());
-//        mFragmentsList.add(new Fragment());
         mFragmentsList.add(ThirdPageFragment.newInstance());
+        //TODO:只是测试用
+//        mFragmentsList.add(new Fragment());
+//        mFragmentsList.add(new Fragment());
+//        mFragmentsList.add(new Fragment());
+
     }
 
     private void initTabLayout() {
@@ -174,8 +181,17 @@ public class MainFragment extends MyBaseFragment implements TabLayout.OnTabSelec
             case EventBusEvent_C.EVENT_TOGGLE_TOOLBAR :
                 toggleToolbar(event);
                 break;
+            case EventBusEvent_C.EVENT_SHOW_SNACK_BAR_IN_MAINFACTIVITY :
+                onEventShowSnackBar(event);
+                break;
         }
     }
+
+    private void onEventShowSnackBar(EventBusEvent event) {
+        String title = StringUtils.isEmpty(event.getMsg()) ? "Warn！！" : event.getMsg();
+        ToastUtils.showSnackbar(mTb, title, Snackbar.LENGTH_SHORT);
+    }
+
 
     private void toggleToolbar(EventBusEvent event) {
         Boolean isShow = (Boolean) event.getObj();

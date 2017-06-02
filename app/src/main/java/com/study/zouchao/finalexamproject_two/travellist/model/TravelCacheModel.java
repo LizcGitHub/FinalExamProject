@@ -3,6 +3,7 @@ package com.study.zouchao.finalexamproject_two.travellist.model;
 import android.content.Context;
 
 import com.study.zouchao.finalexamproject_two.base_zou.cache.TravelCacheUtil;
+import com.study.zouchao.finalexamproject_two.travellist.entity.TravelListResult;
 
 import java.util.List;
 
@@ -11,10 +12,11 @@ import java.util.List;
  */
 
 public class TravelCacheModel {
-    public void save2SharePre(Context context, List<TravelItem> data) {
-        TravelCacheUtil.saveAdPics(context, data);
+    public void saveTravelData2SharePre(Context context, List<TravelListResult.ResultBean> newData) {
+        TravelCacheUtil.saveTravelData(context, newData);
     }
-    public List<TravelItem> listSchoolPics(Context context) {
-        return TravelCacheUtil.listAdPicsCacheByList(context);
+
+    public List<TravelListResult.ResultBean> listTravelData(Context context) {
+        return TravelCacheUtil.listTravelCacheByList(context);
     }
 }

@@ -14,15 +14,17 @@ public interface TravelContract {
 
     }
     interface ITravelView {
-        void setAdapter(TravelRecyclerViewAdapter adapter);
+//        void setAdapter(TravelRecyclerViewAdapter adapter);
 
         void showRefreshingLoading(boolean isShow);
         void showSeeMoreLoading(boolean isShow);
         void setSeeMoreLoading(View footerLoadingView);
+        void showSnackbar(String title, int showLength);
     }
     interface ITravelPresenter {
         void onRefreshingData();
         void loadSeeMore();
         void initRecyclerView(RecyclerView rv);
+        void onDestroyPresente();
     }
 }

@@ -1,6 +1,8 @@
 package com.study.zouchao.finalexamproject_two.util;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
+import android.view.View;
 import android.widget.Toast;
 
 /**
@@ -47,5 +49,16 @@ public class ToastUtils {
     public static void showLong(Context context, String message) {
         if (context != null)
             Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+    }
+
+
+    /**
+     * SnackBar
+     * @param title
+     * @param showLength
+     */
+    public static void showSnackbar(View view, String title, int showLength) {
+        Snackbar.make(view, title, showLength)
+                .show();
     }
 }

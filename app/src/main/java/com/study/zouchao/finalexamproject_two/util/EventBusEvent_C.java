@@ -58,4 +58,8 @@ public class EventBusEvent_C {
      */
     public static final String EVENT_ON_HANDLE_BACK_EVENT = "EVENT_ON_HANDLE_BACK_EVENT";
 
+    /**
+     * 在mainActivity显示一个snackbar
+     */
+    public static final String EVENT_SHOW_SNACK_BAR_IN_MAINFACTIVITY = "EVENT_SHOW_SNACK_BAR_IN_MAINFACTIVITY";
 }

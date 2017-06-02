@@ -2,6 +2,7 @@ package com.study.zouchao.finalexamproject_two.travellist;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,9 @@ import android.view.View;
 import com.study.zouchao.finalexamproject_three.R;
 import com.study.zouchao.finalexamproject_two.base_zou.MyBaseFragment;
 import com.study.zouchao.finalexamproject_two.travellist.adapter.TravelRecyclerViewAdapter;
+import com.study.zouchao.finalexamproject_two.util.EventBusEvent;
+import com.study.zouchao.finalexamproject_two.util.EventBusEvent_C;
+import com.study.zouchao.finalexamproject_two.util.EventBusUtils;
 import com.study.zouchao.finalexamproject_two.util.ui.OnSlideSeeMoreLisenter;
 
 import butterknife.BindView;
@@ -67,14 +71,13 @@ public class TravelFragment extends MyBaseFragment
     }
 
     @Override
-    public void onSeeMore() {
-        mPresenter.loadSeeMore();
+    public void showSnackbar(String title, int showLength) {
+        EventBusUtils.post(new EventBusEvent(EventBusEvent_C.EVENT_SHOW_SNACK_BAR_IN_MAINFACTIVITY, null, title));
     }
 
     @Override
-    public void setAdapter(TravelRecyclerViewAdapter adapter) {
-//        mRvTravel.setAdapter(adapter);
-//        adapter.notifyDataSetChanged();
+    public void onSeeMore() {
+        mPresenter.loadSeeMore();
     }
 
     @Override

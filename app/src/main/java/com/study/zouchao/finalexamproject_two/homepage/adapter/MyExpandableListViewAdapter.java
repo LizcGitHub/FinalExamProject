@@ -17,6 +17,7 @@ import com.study.zouchao.finalexamproject_two.downloaddata.entity.FileInfo;
 import com.study.zouchao.finalexamproject_two.service.DownloadService;
 import com.study.zouchao.finalexamproject_two.util.StringUtils;
 import com.study.zouchao.finalexamproject_two.util.ToastUtils;
+import com.study.zouchao.finalexamproject_two.util.UnitSizeConverseUtil;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -115,7 +116,9 @@ public class MyExpandableListViewAdapter
         }
         final FileInfo fileInfo = mMap.get(mParent.get(groupPosition)).get(childPosition);
         holder.tvChildTitle.setText(fileInfo.getFileName());
-        holder.tvFileSize.setText("文件大小："+fileInfo.getTotalSizeByAdd()+"M");
+        holder.tvFileSize.setText(
+                "文件大小："+UnitSizeConverseUtil.Byte2MbByString(fileInfo.getTotalSizeByAdd())+"M"
+        );
         //开始下载点击事件
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
