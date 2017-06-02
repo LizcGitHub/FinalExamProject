@@ -77,15 +77,22 @@
             android:theme="@android:style/Theme.Material.Light.Dialog" />
 
         <!-- 查询公交Activity -->
-        <activity android:name="com.study.zouchao.finalexamproject_two.searchbusactivity.SearchBusActivity" />
+        <activity android:name="com.study.zouchao.finalexamproject_two.searchbusactivity.SearchBusActivity">
+
+        </activity>
 
         <!-- Service -->
         <service android:name="com.study.zouchao.finalexamproject_two.service.DownloadService" />
 
         <activity
             android:name="com.study.zouchao.finalexamproject_two.baidumap.BaiduMapActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name="com.study.zouchao.finalexamproject_two.searchtel.SearchTelActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+        <activity android:name="com.study.zouchao.finalexamproject_two.searchtel.SearchTelActivity">
+
+        </activity>
     </application>
 
 </manifest>

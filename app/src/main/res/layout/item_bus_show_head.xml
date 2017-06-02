@@ -10,6 +10,7 @@
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:layout_below="@+id/v_center_line"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"
         android:background="@color/bus_line_color" />
 

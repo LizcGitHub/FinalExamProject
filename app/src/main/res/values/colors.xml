@@ -51,5 +51,5 @@
 
     <!--查询公交-->
     <color name="text_color_gray">#808080</color>
-    <color name="bus_line_color">#01B3EE</color>
+    <color name="bus_line_color">#FF4081</color>
 </resources>

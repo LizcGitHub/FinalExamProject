@@ -5,10 +5,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.study.zouchao.finalexamproject_three.R;
 import com.study.zouchao.finalexamproject_two.downloaddata.db.DownloadedDAOImpl;
@@ -37,8 +39,11 @@ import butterknife.OnClick;
 
 public class DownloadingFragment extends Fragment implements IDownloadingContract.IDownloadingView {
     private View mRootView = null;
+
     @BindView(R.id.lvFile)
     ListView mLvFile;
+    @BindView(R.id.id_rl_empty_view)
+    RelativeLayout mRlEmptyView;
     //P
     private DownloadingPresenter mPresenter;
 
@@ -61,12 +66,17 @@ public class DownloadingFragment extends Fragment implements IDownloadingContrac
             mRootView = inflater.inflate(R.layout.fragment_downloading, container, false);
         }
         ButterKnife.bind(this, mRootView);
+        mLvFile.setEmptyView(mRlEmptyView);
         return mRootView;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        init();
+    }
+
+    private void init() {
         mPresenter = new DownloadingPresenter(getContext(), this);
     }
 
@@ -77,7 +87,6 @@ public class DownloadingFragment extends Fragment implements IDownloadingContrac
     }
 
     private void updateProgress(UpdateProgressDTO dto) {
-//        Log.d("更新进度。。有执行到？？", dto.url+"\n"+dto.progress);
         mPresenter.updateProgress(dto);
     }
 
@@ -100,32 +109,4 @@ public class DownloadingFragment extends Fragment implements IDownloadingContrac
         mPresenter.updateDownloadingListViewItemCount();
     }
 
-
-    @OnClick({R.id.id_btn_clearAll})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.id_btn_clearAll :
-//                clearAll();
-                break;
-        }
-
-    }
-
-//    private void clearAll() {
-//        //删除数据库
-//        DownloadingDAOImpl.deleteDownloadingList(getActivity());
-//        DownloadedDAOImpl.deleteDownloadedList(getActivity());
-//        ToastUtils.showShort(App.getAppContext(), "Clear All Success");
-//    }
-
-
-//    /**
-//     * 添加下载任务
-//     *  给正在下载ListView加一行
-//     *  (事实上貌似也调用 不到。。。addTask在其他页面,每次进来都会重新从数据库取一次)
-//     *   真正调用到的情况： onSuccess
-//     */
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void onEventUpdateDownloadingListViewItemCount(DownloadedSuccessUpdateUiDTO dto) {
-//    }
 }

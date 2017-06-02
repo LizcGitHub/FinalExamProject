@@ -33,11 +33,29 @@
             android:paddingLeft="5dp" />
 
 
+
+        <com.dd.CircularProgressButton
+            android:id="@+id/id_btn_circle_progress"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/white"
+            app:cpb_cornerRadius="48dp"
+            android:textSize="9sp"
+            app:cpb_textComplete="Complete"
+            app:cpb_textError="Error"
+            app:cpb_textIdle="Upload"/>
+
+
+
         <Button
             android:id="@+id/btn_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="查询" />
+            android:text="查询"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <TextView

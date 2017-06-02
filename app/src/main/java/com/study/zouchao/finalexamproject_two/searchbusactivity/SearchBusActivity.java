@@ -30,6 +30,7 @@ import com.baidu.mapapi.search.poi.PoiDetailResult;
 import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
+import com.dd.CircularProgressButton;
 import com.study.zouchao.finalexamproject_three.R;
 import com.study.zouchao.finalexamproject_two.searchbusactivity.adapter.BusShowAdapter;
 
@@ -45,6 +46,7 @@ import java.util.List;
 
 public class SearchBusActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private CircularProgressButton mBtnProgress;
     private Button mBtnSearch;
     private TextView mTvSearchCity;
     private EditText mEtInputBus;
@@ -74,6 +76,7 @@ public class SearchBusActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void initView() {
+        mBtnProgress = (CircularProgressButton) findViewById(R.id.id_btn_circle_progress);
         mBtnSearch = (Button) findViewById(R.id.btn_search);
         mTvSearchCity = (TextView) findViewById(R.id.tv_search_city);
         mEtInputBus = (EditText) findViewById(R.id.et_input_bus);
@@ -94,6 +97,19 @@ public class SearchBusActivity extends AppCompatActivity implements View.OnClick
         mTvSearchCity.setOnClickListener(this);
         mEtInputBus.setOnClickListener(this);
         mBtnSearch.setOnClickListener(this);
+        mBtnProgress.setOnClickListener(this);
+        mBtnProgress.setIndeterminateProgressMode(true);
+        mBtnProgress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+                if (mBtnProgress.getProgress() == 0)
+                    mBtnProgress.setProgress(50);
+                else if (mBtnProgress.getProgress() == 100)
+                    mBtnProgress.setProgress(0);
+                else mBtnProgress.setProgress(50);
+            }
+        });
 
         mBusLineSearch = BusLineSearch.newInstance();
         mSearch = PoiSearch.newInstance();
@@ -153,6 +169,8 @@ public class SearchBusActivity extends AppCompatActivity implements View.OnClick
                 mBusDetails.clear();
                 mBusDetails.addAll(busLineResult.getStations());
                 adapter.notifyDataSetChanged();
+
+                mBtnProgress.setProgress(100);
             }
         });
         mEtInputBus.addTextChangedListener(new TextWatcher() {
@@ -188,10 +206,12 @@ public class SearchBusActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_search: {
+            case R.id.btn_search:
                 submit();
-            }
-            break;
+                break;
+            case R.id.id_btn_circle_progress :
+//                submit();
+                break;
         }
     }
 
@@ -200,6 +220,7 @@ public class SearchBusActivity extends AppCompatActivity implements View.OnClick
         final String bus = mEtInputBus.getText().toString().trim();
         if (TextUtils.isEmpty(bus)) {
             Toast.makeText(this, "bus不能为空", Toast.LENGTH_SHORT).show();
+            mBtnProgress.setProgress(-1);
             return;
         }
         if (busLineId != null) {

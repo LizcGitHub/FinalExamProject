@@ -97,20 +97,12 @@ public class FileListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 DownloadService.actionStartAddDownload(mContext, fileInfo);
-//                //通知 service开始 下载
-//                Intent intent = new Intent(mContext, DownloadService.class);
-//                intent.setAction(DownloadService.ACTION_START);
-//                Log.i("不能继续>>点击继续", fileInfo.toString());
-//                intent.putExtra("fileInfo", fileInfo);
-//                mContext.startService(intent);   //启动service
             }
         });
         holder.btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DownloadService.actionStopDownload(mContext, fileInfo);
-//                Toast.makeText(mContext, "stop.."+ fileInfo.getFileName(), Toast.LENGTH_SHORT).show();
-
             }
         });
         return view;

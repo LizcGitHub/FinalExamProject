@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.study.zouchao.finalexamproject_three.R;
 import com.study.zouchao.finalexamproject_two.downloaddata.db.DownloadedDAOImpl;
@@ -42,6 +43,8 @@ import butterknife.ButterKnife;
 public class DownloadedFragment extends Fragment {
     private final static String TAG = "..........已下载Fragment";
     private View mRootView;
+    @BindView(R.id.id_rl_empty_view)
+    RelativeLayout mRlEmptyView;
     @BindView(R.id.id_lv_downloaded)
     ListView mLvDownloaded;
     private BaseAdapter mAdapter;
@@ -68,6 +71,7 @@ public class DownloadedFragment extends Fragment {
         mList = DownloadedDAOImpl.getDownloadedListByBean(getContext());
         mAdapter = new DownloadedListAdapter(getContext(), mList);
         mLvDownloaded.setAdapter(mAdapter);
+        mLvDownloaded.setEmptyView(mRlEmptyView);
         //注册ContextMenu
         registerForContextMenu(mLvDownloaded);
     }
