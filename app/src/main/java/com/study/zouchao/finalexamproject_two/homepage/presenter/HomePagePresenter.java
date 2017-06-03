@@ -7,6 +7,8 @@ import android.view.MotionEvent;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.google.common.base.Joiner;
+import com.google.gson.Gson;
 import com.study.zouchao.finalexamproject_three.R;
 import com.study.zouchao.finalexamproject_two.downloaddata.entity.FileInfo;
 import com.study.zouchao.finalexamproject_two.homepage.adapter.MyExpandableListViewAdapter;
@@ -18,12 +20,24 @@ import com.study.zouchao.finalexamproject_two.homepage.model.impl.AdConnModel;
 import com.study.zouchao.finalexamproject_two.homepage.model.impl.CourseDataCacheModel;
 import com.study.zouchao.finalexamproject_two.homepage.model.impl.CourseDataConnModel;
 import com.study.zouchao.finalexamproject_two.homepage.model.result.BannerItem;
+import com.study.zouchao.finalexamproject_two.searchweather.SearchWeatherModel;
+import com.study.zouchao.finalexamproject_two.searchweather.entity.WeatherEntity;
+import com.study.zouchao.finalexamproject_two.util.LogLongUtil;
+import com.study.zouchao.finalexamproject_two.util.StringUtils;
 import com.study.zouchao.finalexamproject_two.util.ToastUtils;
 
+import org.jsoup.Connection;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+import rx.functions.Action1;
 
 /**
  * Created by Administrator on 2017/2/9.
@@ -52,6 +66,7 @@ public class HomePagePresenter implements IHomePageContract.IHomePagePresenter {
         mListener = listener;
         init();
     }
+
     private void init() {
         mBannerItems = new ArrayList<>();
         mConvenientBanner = mView.getConvenientBanner();
@@ -65,6 +80,7 @@ public class HomePagePresenter implements IHomePageContract.IHomePagePresenter {
         initView();
         loadData();
     }
+
     private void initView() {
         //广告栏
         mConvenientBanner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
@@ -73,7 +89,7 @@ public class HomePagePresenter implements IHomePageContract.IHomePagePresenter {
                 return new NetworkImageHolderView();
             }
         }, mBannerItems).setPageIndicator(new int[]{R.drawable.circle_unfocused,
-                        R.drawable.circle_focused});
+                R.drawable.circle_focused});
         //expanablelistview
         mExpanableLvAdapter = new MyExpandableListViewAdapter(mContext, mParentChildMap);
         mExpanableLvAdapter.setOnChildItemClickListener(mListener);
@@ -85,6 +101,7 @@ public class HomePagePresenter implements IHomePageContract.IHomePagePresenter {
     public void loadData() {
         loadAllDataFromCache();
         onRefreshingData();
+
     }
 
     private MyExpandableListViewAdapter.IOnChildItemClickListener mListener;
@@ -109,8 +126,9 @@ public class HomePagePresenter implements IHomePageContract.IHomePagePresenter {
     }
 
     private void attemptHideRefreshingAnimation() {
-        Log.i("WoCaoWOLELEGE......re.."+mIsRefreshingSchoolPics, "co.."+mIsRefreshingCourseData);
-        if (!mIsRefreshingSchoolPics && !mIsRefreshingCourseData)   mView.showRefreshingAnimation(false);
+        Log.i("WoCaoWOLELEGE......re.." + mIsRefreshingSchoolPics, "co.." + mIsRefreshingCourseData);
+        if (!mIsRefreshingSchoolPics && !mIsRefreshingCourseData)
+            mView.showRefreshingAnimation(false);
     }
 
 
@@ -133,6 +151,7 @@ public class HomePagePresenter implements IHomePageContract.IHomePagePresenter {
                 toggleShoolPicsRefreshing(false);
                 Log.i("Loading..false", "connAdPic..onSuccess");
             }
+
             @Override
             public void onFailure(Throwable throwable, String msg) {
                 toggleShoolPicsRefreshing(false);
@@ -154,14 +173,14 @@ public class HomePagePresenter implements IHomePageContract.IHomePagePresenter {
 
     private void loadAdDataFromCache() {
         List<String> data = mAdCacheModel.listAdPics(mContext);
-        if (data == null)  return;
+        if (data == null) return;
         showAd(data);
     }
 
     private void showAd(List<String> slideImgs) {
         List<BannerItem> items = new ArrayList<>();
         //生成所需的数据
-        for (int i = 0; i < slideImgs.size(); i ++) {
+        for (int i = 0; i < slideImgs.size(); i++) {
             items.add(new BannerItem("第" + i + "张", slideImgs.get(i)));
         }
         //广告栏
@@ -185,6 +204,7 @@ public class HomePagePresenter implements IHomePageContract.IHomePagePresenter {
                 toggleCourseDataRefreshing(false);
 //                ToastUtils.showShort(mContext, "下载列表更新成功");
             }
+
             @Override
             public void onFailure(Throwable throwable, String msg) {
                 toggleCourseDataRefreshing(false);
@@ -192,6 +212,7 @@ public class HomePagePresenter implements IHomePageContract.IHomePagePresenter {
             }
         });
     }
+
 
     private void sucessGetCourseData(LinkedHashMap<String, List<DataBean>> data) {
         LinkedHashMap<String, List<FileInfo>> newData = parse2ExpandableListViewData(data);
@@ -223,10 +244,11 @@ public class HomePagePresenter implements IHomePageContract.IHomePagePresenter {
 
     private void loadCourseDataFromCache() {
         LinkedHashMap<String, List<FileInfo>> cacheData = mCourseCacheModel.listCoureseDataByMap(mContext);
-        if (cacheData == null)  return;
+        if (cacheData == null) return;
         Log.i("怎么没标题", cacheData.toString());
         mParentChildMap.clear();
         mParentChildMap.putAll(cacheData);
         mExpanableLvAdapter.notifyDataSetChanged();
     }
+
 }

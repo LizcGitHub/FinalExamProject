@@ -30,12 +30,12 @@
 
         <com.study.zouchao.finalexamproject_two.util.ui.CircleImageView
             android:id="@+id/iv_head_img"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="10dp"
             android:layout_marginStart="10dp"
-            android:src="@drawable/headimg_pikaqu" />
+           />
     </RelativeLayout>
 
 </LinearLayout>

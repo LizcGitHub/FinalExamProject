@@ -3,11 +3,13 @@ package com.study.zouchao.finalexamproject_two.main.view;
 import android.app.Fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.study.zouchao.finalexamproject_three.R;
 import com.study.zouchao.finalexamproject_two.base_zou.ZouImgLoader;
 import com.study.zouchao.finalexamproject_two.downloaddata.all.view.activity.AllDownloadActivity;
@@ -25,16 +28,28 @@ import com.study.zouchao.finalexamproject_two.login.view.LoginActivity;
 import com.study.zouchao.finalexamproject_two.pdfview.PdfViewActivity;
 import com.study.zouchao.finalexamproject_two.searchbusactivity.SearchBusActivity;
 import com.study.zouchao.finalexamproject_two.searchtel.SearchTelActivity;
+import com.study.zouchao.finalexamproject_two.searchweather.SearchWeatherModel;
+import com.study.zouchao.finalexamproject_two.searchweather.entity.WeatherEntity;
 import com.study.zouchao.finalexamproject_two.util.EventBusEvent;
 import com.study.zouchao.finalexamproject_two.util.EventBusEvent_C;
 import com.study.zouchao.finalexamproject_two.util.EventBusUtils;
+import com.study.zouchao.finalexamproject_two.util.LogLongUtil;
 import com.study.zouchao.finalexamproject_two.util.ToastUtils;
+
+import java.io.IOException;
+import java.util.IllegalFormatCodePointException;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private Toolbar mToolbar;
     private LinearLayout mNavHead;
     private ImageView mIvHeadImg;
+    private TextView mTvWeather;
     private TextView mTvNickname, mTvEmail;
     private boolean mIsFirstComing = true;              //第一次进入    (另一状态表示返回)    //TODO:可以考虑去除 考虑到：当页面被重新加载时
     private ImageView mIvBg;
@@ -64,9 +79,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        }
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         mIvBg = (ImageView) navigationView.findViewById(R.id.id_iv_head_bg);
+        mTvWeather = (TextView) navigationView.findViewById(R.id.id_tv_weather);
         ZouImgLoader.loadImageWithBlur(this, mIvBg, R.drawable.google_sm_, R.drawable.error_pic);
         navigationView.setNavigationItemSelectedListener(this);
         initHeadLayout(navigationView);
+        connWeather();
     }
 
     @Override
@@ -111,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mIvHeadImg = (ImageView) mNavHead.findViewById (R.id.iv_head_img);
         mTvNickname = (TextView) mNavHead.findViewById (R.id.tv_nickname);
 //        mTvEmail = (TextView) mNavHead.findViewById (R.id.tv_email);
+        ZouImgLoader.loadImage(this, mIvHeadImg, R.drawable.headimg_pikaqu, R.drawable.error_pic);
     }
     @Override
     public void onClick(View v) {
@@ -145,6 +163,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             return super.onKeyDown(keyCode, event);
         }
+    }
+
+
+    public void connWeather() {
+        new SearchWeatherModel().conn()
+                .enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                    }
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        onSuccessGetWeather(response);
+                    }
+                });
+    }
+
+    private void onSuccessGetWeather(Response response) {
+        if (response.body() == null)    return;
+        try {
+            String json =  response.body().string();
+            parseWeather(new Gson().fromJson(json, WeatherEntity.class));
+
+        } catch (IOException e) {e.printStackTrace();}
+    }
+
+    private void parseWeather(WeatherEntity entity) {
+        LogLongUtil.logI("天气", entity.toString());
+        List<WeatherEntity.HeWeatherBean>  heWeathers = entity.getHeWeather();
+        if (heWeathers.size() < 1)  return;
+        WeatherEntity.HeWeatherBean heWeatherBean = heWeathers.get(0);
+        if (heWeatherBean.getNow() == null) return;
+        WeatherEntity.HeWeatherBean.NowBean nowBean = heWeatherBean.getNow();
+        showNowTmp(nowBean.getTmp());
+    }
+
+    private void showNowTmp(String nowTmp) {
+        Log.d("现在温度", nowTmp);
+        mTvWeather.setText(nowTmp);
     }
 
     @Override

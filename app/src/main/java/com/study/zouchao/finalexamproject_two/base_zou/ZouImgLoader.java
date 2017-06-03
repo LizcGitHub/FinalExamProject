@@ -86,6 +86,16 @@ public class ZouImgLoader {
                 .error(errorImg)
                 .into(iv);
     }
+
+
+    public static void loadImageByGif(Context context, ImageView iv, int resId, int errorImg) {
+        Glide.with(context)
+                .load(resId)
+                .asGif()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .error(errorImg)
+                .into(iv);
+    }
     /*
      * 根据Uri 获得Bitmap
      */
