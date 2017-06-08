@@ -20,5 +20,6 @@
         android:layout_marginRight="18dp"
         android:textSize="8pt"
         android:textColor="@color/colorToolText"
+        android:visibility="gone"
         android:text="完成"/>
 </RelativeLayout>

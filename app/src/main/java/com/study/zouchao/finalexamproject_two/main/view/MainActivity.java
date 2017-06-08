@@ -199,9 +199,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         showNowTmp(nowBean.getTmp());
     }
 
-    private void showNowTmp(String nowTmp) {
+    private void showNowTmp(final String nowTmp) {
         Log.d("现在温度", nowTmp);
-        mTvWeather.setText(nowTmp);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mTvWeather.setText(nowTmp);
+            }
+        });
     }
 
     @Override

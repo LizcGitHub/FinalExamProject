@@ -137,7 +137,11 @@ public class AllDownloadActivity extends AppCompatActivity {
         ToastUtils.showShort(this, "更新ROM大小");
     }
 
- 
+
+    @OnClick({R.id.id_tv_finish})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.id_tv_finish :
                 clearAll();
                 break;
         }

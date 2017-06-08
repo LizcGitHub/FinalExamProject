@@ -241,7 +241,7 @@ public class ScorePresenter implements IScoreContract.IScorePresenter {
                 .setCourseProperty(getAttrValueByTrIndex(tdEles, 4))
                 .setCourseBelong(getAttrValueByTrIndex(tdEles, 5))
                 .setCredit(getAttrValueByTrIndex(tdEles, 6))
-                .setScore(getAttrValueByTrIndex(tdEles, 7))
+                .setScore(getAttrValueByTrIndex(tdEles, 8))
                 .setReExamScore(getAttrValueByTrIndex(tdEles, 8))
                 .setIsRebuild(getAttrValueByTrIndex(tdEles, 9))
                 .setInstitute(getAttrValueByTrIndex(tdEles, 10))
