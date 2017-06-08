@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?><!--具体课程部分-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+
+    >
 
     <RelativeLayout
         android:id="@+id/id_ll_week_1"

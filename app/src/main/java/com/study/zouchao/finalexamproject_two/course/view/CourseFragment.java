@@ -14,9 +14,6 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import com.alamkanak.weekview.MonthLoader;
-import com.alamkanak.weekview.WeekView;
-import com.alamkanak.weekview.WeekViewEvent;
 import com.study.zouchao.finalexamproject_three.R;
 import com.study.zouchao.finalexamproject_two.course.adapter.CurriculumScheduleBgAdapter;
 import com.study.zouchao.finalexamproject_two.course.contract.CourseContract;
@@ -35,11 +32,9 @@ import butterknife.OnClick;
  * Created by Administrator on 2016/12/9.
  */
 
-public class CourseFragment extends Fragment implements CourseContract.ICourseView, WeekView.EventClickListener, WeekView.EventLongPressListener, MonthLoader.MonthChangeListener {
+public class CourseFragment extends Fragment implements CourseContract.ICourseView  {
     //Loading
     private ProgressDialog mLoading;
-    @BindView(R.id.id_weekview)
-    WeekView mWeekView;
     //课程表格
     @BindView(R.id.id_tv_course_table)
     TextView mTvCourseTable;
@@ -81,15 +76,6 @@ public class CourseFragment extends Fragment implements CourseContract.ICourseVi
 
     }
 
-    private void initWeekView() {
-        // Set an action when any event is clicked.
-        mWeekView.setOnEventClickListener(this);
-        // The week view has infinite scrolling horizontally. We have to provide the events of a
-        // month every time the month changes on the week view.
-        mWeekView.setMonthChangeListener(this);
-        // Set long press listener for events.
-        mWeekView.setEventLongPressListener(this);
-    }
 
     @Override
     public void setTitle(String title) {
@@ -160,23 +146,4 @@ public class CourseFragment extends Fragment implements CourseContract.ICourseVi
     }
 
 
-    /**
-     * 课表
-     * @param event
-     * @param eventRect
-     */
-    @Override
-    public void onEventClick(WeekViewEvent event, RectF eventRect) {
-
-    }
-
-    @Override
-    public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
-
-    }
-
-    @Override
-    public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-        return null;
-    }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +33,8 @@ import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.dd.CircularProgressButton;
 import com.study.zouchao.finalexamproject_three.R;
+import com.study.zouchao.finalexamproject_two.baidumap.BaiduMapActivity;
+import com.study.zouchao.finalexamproject_two.baidumap.LocationDemo;
 import com.study.zouchao.finalexamproject_two.searchbusactivity.adapter.BusShowAdapter;
 
 
@@ -46,6 +49,7 @@ import java.util.List;
 
 public class SearchBusActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private FloatingActionButton mFab;
     private CircularProgressButton mBtnProgress;
     private Button mBtnSearch;
     private TextView mTvSearchCity;
@@ -87,6 +91,8 @@ public class SearchBusActivity extends AppCompatActivity implements View.OnClick
         mTvEndStation = (TextView) findViewById(R.id.tv_end_station);
         mTvDirection = (TextView) findViewById(R.id.tv_direction);
         mTvTime = (TextView) findViewById(R.id.tv_time);
+        mFab = (FloatingActionButton) findViewById(R.id.id_fab);
+        mFab.setOnClickListener(this);
 
         mHCenterLine.setOnClickListener(this);
         mVCenterLine.setOnClickListener(this);
@@ -211,6 +217,9 @@ public class SearchBusActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.id_btn_circle_progress :
 //                submit();
+                break;
+            case R.id.id_fab :
+                LocationDemo.actionStartLocationDemo(this);
                 break;
         }
     }

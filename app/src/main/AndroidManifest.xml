@@ -44,6 +44,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <!-- pdfActivity -->
@@ -84,13 +85,18 @@
         <!-- Service -->
         <service android:name="com.study.zouchao.finalexamproject_two.service.DownloadService" />
 
+        <!--百度地图-->
         <activity
             android:name="com.study.zouchao.finalexamproject_two.baidumap.BaiduMapActivity"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <!--查询电话-->
+        <activity android:name="com.study.zouchao.finalexamproject_two.searchtel.SearchTelActivity">
 
         </activity>
 
-        <activity android:name="com.study.zouchao.finalexamproject_two.searchtel.SearchTelActivity">
+        <activity android:name="com.study.zouchao.finalexamproject_two.baidumap.LocationDemo">
 
         </activity>
     </application>
